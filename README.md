@@ -1,56 +1,76 @@
-# Norheimsposten
+# Norheimsposten MERN
 
-A React web application for Norheimsposten, built with Vite.
+A basic MERN stack starter with:
+
+- React + Vite frontend
+- Node.js + Express backend
+- MongoDB connection via Mongoose
 
 ## Tech Stack
 
-- [React 18](https://react.dev/)
-- [Vite](https://vitejs.dev/)
+- React 18
+- Vite
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
 
-## Getting Started
+## Setup
 
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) (v18 or later)
-- npm
-
-### Installation
+1. Install dependencies:
 
 ```bash
 npm install
 ```
 
-### Development
+2. Create your environment file:
 
-Start the local dev server:
+```bash
+cp .env.example .env
+```
+
+3. Start client and server together:
 
 ```bash
 npm run dev
 ```
 
-The app runs at `http://localhost:5173` by default.
+Frontend runs on http://localhost:5173 and backend runs on http://localhost:5000.
 
-### Build
+## Available Scripts
 
-Create a production build:
+- npm run dev: start backend and frontend concurrently
+- npm run dev:client: start only the React frontend
+- npm run dev:server: start only the Express backend with nodemon
+- npm run start: start backend in production mode
+- npm run build: build frontend for production
+- npm run preview: preview frontend production build
 
-```bash
-npm run build
+## Environment Variables
+
+Use .env with the following keys:
+
+```env
+PORT=5000
+MONGO_URI=mongodb://127.0.0.1:27017/norheimsposten
 ```
 
-### Preview Production Build
+## API Endpoint
 
-```bash
-npm run preview
-```
+- GET /api/health
+
+Returns a small JSON payload to verify backend availability.
 
 ## Project Structure
 
-```
-├── public/          # Static assets
-├── src/
-│   ├── App.jsx      # Root component
-│   └── main.jsx     # Entry point
-├── index.html
-└── vite.config.js
+```text
+src/
+	App.jsx
+	main.jsx
+server/
+	config/
+		db.js
+	routes/
+		healthRoute.js
+	server.js
 ```
