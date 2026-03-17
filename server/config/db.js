@@ -4,8 +4,8 @@ const connectDB = async () => {
   const mongoUri = process.env.MONGO_URI
 
   if (!mongoUri) {
-    console.warn('MONGO_URI is not set. Running without MongoDB connection.')
-    return
+    console.error('MONGO_URI is not set. Check your .env file.')
+    process.exit(1)
   }
 
   try {

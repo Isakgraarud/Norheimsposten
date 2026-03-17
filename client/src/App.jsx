@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react'
 function App() {
   const [movies, setMovies] = useState([])
   const [error, setError] = useState('')
-  const [loading, setLoading] = useState(true) // Lagt til for bedre brukeropplevelse
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await fetch('/api/movies')
+        const response = await fetch('http://localhost:5001/api/movies')
 
         if (!response.ok) {
           throw new Error(`Serverfeil: ${response.status}`)
@@ -32,16 +32,12 @@ function App() {
         <h1>Norheimsposten MERN App</h1>
         <h2>Filmer fra MongoDB</h2>
 
-        {/* 1. Vis feilmelding hvis noe går galt */}
         {error && <p style={{ color: 'red' }}>{error}</p>}
 
-        {/* 2. Vis lademelding mens vi venter på data */}
         {loading && !error && <p>Laster filmer...</p>}
 
-        {/* 3. Vis melding hvis listen faktisk er tom etter lasting */}
         {!loading && !error && movies.length === 0 && <p>Ingen filmer funnet i databasen.</p>}
 
-        {/* 4. VIKTIG: Vis filmene når movies.length er STØRRE enn 0 */}
         {!error && movies.length > 0 && (
             <div style={{ display: 'grid', gap: '20px' }}>
               {movies.map((movie) => (
