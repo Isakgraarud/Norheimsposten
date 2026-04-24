@@ -1,95 +1,120 @@
-# Norheimsposten MERN
+# Norheimsposten React
 
-A basic MERN stack starter with:
+Norheimsposten is a full-stack news app built as a pnpm workspace with:
 
-- React + Vite frontend
-- Node.js + Express backend
-- MongoDB connection via Mongoose
+- React + Vite client
+- Express + MongoDB API server
+- JWT-based authentication with role-based access (`reader`, `editor`, `admin`)
 
 ## Tech Stack
 
-- React 18
-- Vite
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
+- Frontend: React 18, Vite, React Router
+- Backend: Node.js, Express 5, Mongoose
+- Database: MongoDB
+- Auth: JSON Web Tokens + bcrypt
+- Tooling: pnpm workspaces
 
-## Setup
+## Workspace Structure
 
-1. Install dependencies:
-
-```bash
-npm install
+```text
+Norheimsposten_React/
+├── client/                    # React app (Vite)
+├── server/                    # Express API + MongoDB models/routes
+├── package.json               # Root workspace scripts
+└── pnpm-workspace.yaml
 ```
 
-2. Create your environment file:
+## Prerequisites
+
+- Node.js 18+
+- pnpm 9+
+- MongoDB running locally or remotely
+
+## Installation
 
 ```bash
-cp .env.example .env
+pnpm install
 ```
-
-3. Start client and server together:
-
-```bash
-npm run dev
-```
-
-Frontend runs on http://localhost:5173 and backend runs on http://localhost:5000.
-
-## Available Scripts
-
-- npm run dev: start backend and frontend concurrently
-- npm run dev:client: start only the React frontend
-- npm run dev:server: start only the Express backend with nodemon
-- npm run start: start backend in production mode
-- npm run build: build frontend for production
-- npm run preview: preview frontend production build
 
 ## Environment Variables
 
-Use .env with the following keys:
+There is no `.env.example` in this repository, so create env files manually.
+
+### Server env file
+
+Create `server/.env`:
 
 ```env
-PORT=5000
+PORT=5001
 MONGO_URI=mongodb://127.0.0.1:27017/norheimsposten
+JWT_SECRET=replace_with_a_long_random_secret
 ```
 
-## API Endpoint
+### Client env file (optional)
 
-- GET /api/health
+The client proxies `/api` requests to `http://localhost:5001` by default.
+If your API runs on a different URL, create `client/.env`:
 
-Returns a small JSON payload to verify backend availability.
-
-## Project Structure
-
-```text
-my-mern-app/
-├── server/                   # Backend (Node/Express)
-│   ├── config/               # Database connection (db.js)
-│   ├── controllers/          # Logic for each route (authController.js)
-│   ├── middleware/           # Auth guards, error handlers
-│   ├── models/               # Mongoose schemas (User.js, Product.js)
-│   ├── routes/               # API endpoint definitions (userRoutes.js)
-│   ├── utils/                # Helper functions (generateToken.js)
-│   ├── .env                  # Environment variables (GIT IGNORE THIS)
-│   ├── package.json          # Backend dependencies
-│   └── server.js             # Entry point
-│
-├── client/                   # Frontend (React/Vite)
-│   ├── public/               # Static files (favicon, etc.)
-│   ├── src/
-│   │   ├── assets/           # Images, global styles
-│   │   ├── components/       # Reusable UI (Navbar, Footer, Card)
-│   │   ├── context/          # State management (AuthContext.js)
-│   │   ├── hooks/            # Custom React hooks
-│   │   ├── pages/            # Page-level components (Home.jsx, Login.jsx)
-│   │   ├── services/         # API call logic (api.js or axios instance)
-│   │   ├── App.jsx           # Main routing and layout
-│   │   └── main.jsx          # React DOM render entry
-│   ├── .env                  # Frontend env vars (VITE_API_URL)
-│   ├── package.json          # Frontend dependencies
-│   └── vite.config.js        # Vite configuration
-│
-└── .gitignore                # Root gitignore to catch node_modules/ & .env
+```env
+VITE_API_PROXY_TARGET=http://localhost:5001
 ```
+
+## Running Locally
+
+Start client and server together from the project root:
+
+```bash
+pnpm dev
+```
+
+Default local URLs:
+
+- Client: `http://localhost:5173`
+- API: `http://localhost:5001`
+
+## Available Scripts
+
+### Root (`package.json`)
+
+- `pnpm dev`: Run both server and client concurrently
+
+### Server (`server/package.json`)
+
+- `pnpm --filter server dev`: Start API with nodemon
+- `pnpm --filter server start`: Start API in production mode
+
+### Client (`client/package.json`)
+
+- `pnpm --filter client dev`: Start Vite dev server
+- `pnpm --filter client build`: Build production assets
+- `pnpm --filter client preview`: Preview production build
+
+## API Overview
+
+Base URL: `/api`
+
+### Health
+
+- `GET /health`
+
+### Auth
+
+- `POST /auth/register`
+- `POST /auth/login`
+
+### Articles
+
+- `GET /articles` (published articles)
+- `GET /articles/:id`
+- `POST /articles` (requires `editor` or `admin` token)
+
+### Movies
+
+- `GET /movies`
+- `POST /movies`
+
+## Notes
+
+- The API will exit on startup if `MONGO_URI` is missing or MongoDB cannot be reached.
+- Login returns a JWT stored by the client in `localStorage` (`np_auth`).
+- Article creation requires a valid bearer token in `Authorization` header.

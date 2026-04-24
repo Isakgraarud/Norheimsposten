@@ -6,7 +6,7 @@ import { fetchArticles } from '../services/articleService'
 import '../styles/np-front-page.css'
 
 function NPFrontPage() {
-  const [activeSection, setActiveSection] = useState('Forside')
+  const [activeSection, setActiveSection] = useState('Home')
   const [articles, setArticles] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState('')
@@ -31,13 +31,13 @@ function NPFrontPage() {
 
   const handleSectionSelect = (section) => {
     setActiveSection(section)
-    if (section === 'Forside') {
+    if (section === 'Home') {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }
 
   const visibleArticles = useMemo(() => {
-    if (activeSection === 'Forside') {
+    if (activeSection === 'Home') {
       return articles
     }
 

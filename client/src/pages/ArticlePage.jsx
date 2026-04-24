@@ -48,7 +48,7 @@ function ArticlePage() {
 
   return (
     <div className="np-page-shell">
-      <Masthead onSectionSelect={() => navigate('/')} activeSection="Forside" />
+      <Masthead onSectionSelect={() => navigate('/')} activeSection="Home" />
 
       <main className="np-main" id="main-content">
         {isLoading ? <p>Laster artikkel...</p> : null}

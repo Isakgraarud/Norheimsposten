@@ -4,6 +4,7 @@ import NPFrontPage from './pages/NPFrontPage.jsx'
 import LoginPage from './pages/LogInPage.jsx'
 import NotFound from './pages/NotFound.jsx'
 import ArticlePage from './pages/ArticlePage.jsx'
+import AboutPage from './pages/AboutPage.jsx'
 import AdminPage from './pages_admin/AdminPage.jsx'
 
 function AdminProtectedRoute({ children }) {
@@ -23,6 +24,7 @@ function App() {
     <Routes>
       <Route path="/" element={<NPFrontPage />} />
       <Route path="/articles/:articleId" element={<ArticlePage />} />
+      <Route path="/about" element={<AboutPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route
         path="/admin"
