@@ -64,13 +64,32 @@ Returns a small JSON payload to verify backend availability.
 ## Project Structure
 
 ```text
-src/
-	App.jsx
-	main.jsx
-server/
-	config/
-		db.js
-	routes/
-		healthRoute.js
-	server.js
+my-mern-app/
+├── server/                   # Backend (Node/Express)
+│   ├── config/               # Database connection (db.js)
+│   ├── controllers/          # Logic for each route (authController.js)
+│   ├── middleware/           # Auth guards, error handlers
+│   ├── models/               # Mongoose schemas (User.js, Product.js)
+│   ├── routes/               # API endpoint definitions (userRoutes.js)
+│   ├── utils/                # Helper functions (generateToken.js)
+│   ├── .env                  # Environment variables (GIT IGNORE THIS)
+│   ├── package.json          # Backend dependencies
+│   └── server.js             # Entry point
+│
+├── client/                   # Frontend (React/Vite)
+│   ├── public/               # Static files (favicon, etc.)
+│   ├── src/
+│   │   ├── assets/           # Images, global styles
+│   │   ├── components/       # Reusable UI (Navbar, Footer, Card)
+│   │   ├── context/          # State management (AuthContext.js)
+│   │   ├── hooks/            # Custom React hooks
+│   │   ├── pages/            # Page-level components (Home.jsx, Login.jsx)
+│   │   ├── services/         # API call logic (api.js or axios instance)
+│   │   ├── App.jsx           # Main routing and layout
+│   │   └── main.jsx          # React DOM render entry
+│   ├── .env                  # Frontend env vars (VITE_API_URL)
+│   ├── package.json          # Frontend dependencies
+│   └── vite.config.js        # Vite configuration
+│
+└── .gitignore                # Root gitignore to catch node_modules/ & .env
 ```

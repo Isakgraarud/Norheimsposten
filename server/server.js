@@ -1,6 +1,8 @@
 import cors from 'cors'
 import dotenv from 'dotenv'
 import express from 'express'
+import articlesRoute from './routes/articlesRoute.js'
+import authRoute from './routes/authRoute.js'
 import connectDB from './config/db.js'
 import healthRoute from './routes/healthRoute.js'
 import moviesRoute from './routes/moviesRoute.js'
@@ -18,6 +20,8 @@ app.get('/', (_req, res) => {
 })
 
 app.use('/api/health', healthRoute)
+app.use('/api/auth', authRoute)
+app.use('/api/articles', articlesRoute)
 app.use('/api/movies', moviesRoute)
 
 const startServer = async () => {
