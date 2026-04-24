@@ -1,0 +1,50 @@
+/* The main container should center content but allow vertical growth */
+.np-admin-shell {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    width: 100%;
+}
+
+/* The card should not have a fixed width; max-width prevents it from being too wide on desktop */
+.np-admin-card {
+    width: 100%;
+    max-width: 800px; /* Adjust based on your preference */
+    background: #fff;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+/* Force the form to stack every element vertically */
+.np-admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* Space between form groups */
+}
+
+/* Labels should be block-level so inputs sit underneath them */
+.np-admin-form label {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+/* Make inputs and textareas expand to 100% of the card width */
+.np-admin-form input,
+.np-admin-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Crucial: includes padding in the width calculation */
+    font-family: inherit;
+}
+
+/* Ensure the button stays full width or adjusts to the stack */
+.np-admin-form button {
+    width: 100%;
+    padding: 1rem;
+    cursor: pointer;
+}

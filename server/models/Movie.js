@@ -8,4 +8,4 @@ const movieSchema = new mongoose.Schema({
     plot: String
 });
 
-export default mongoose.model('Movie', movieSchema, 'movies');
+export default mongoose.model('Movies', movieSchema, 'movies');
