@@ -1,11 +1,11 @@
+import { useNavigate } from 'react-router-dom'
 import { clearAuthState, getAuthState } from '../services/authService'
 
 export const NAV_SECTIONS = [
-  'Forside',
-  'Nyheter',
-  'Sport',
-  'Kultur',
-  'Meninger',
+    'Home',
+    'News',
+    'Memes',
+    'About Us'
 ]
 
 export const dateTimeLabel = new Date().toLocaleDateString('en-EN', {
@@ -17,6 +17,7 @@ export const dateTimeLabel = new Date().toLocaleDateString('en-EN', {
 
 
 function Masthead({ onSectionSelect, activeSection }) {
+  const navigate = useNavigate()
   const authState = getAuthState()
   const userRole = authState?.user?.role
   const canPost = userRole === 'editor' || userRole === 'admin'
@@ -24,6 +25,14 @@ function Masthead({ onSectionSelect, activeSection }) {
   const handleLogout = () => {
     clearAuthState()
     window.location.href = '/'
+  }
+
+  const handleSectionClick = (section) => {
+    if (section === 'About Us') {
+      navigate('/about')
+    } else {
+      onSectionSelect(section)
+    }
   }
 
   return (
@@ -48,7 +57,7 @@ function Masthead({ onSectionSelect, activeSection }) {
           <p className="np-tagline"></p>
           <div className="np-name">
               <span>
-                  <a href="/" > HEADING </a>
+                  <a href="/" > NORHEIMSPOSTEN </a>
               </span>
             <p className="np-tagline"></p>
           </div>
@@ -62,7 +71,7 @@ function Masthead({ onSectionSelect, activeSection }) {
                 type="button"
                 className={activeSection === section ? 'is-active' : ''}
                 aria-pressed={activeSection === section}
-                onClick={() => onSectionSelect(section)}
+                onClick={() => handleSectionClick(section)}
               >
                 {section}
               </button>
