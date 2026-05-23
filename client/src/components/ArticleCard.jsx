@@ -7,32 +7,36 @@ function ArticleCard({ article, variant = 'standard' }) {
   }
 
   const categoryRoute = getCategoryRoute(article.category)
+  const showImage = variant !== 'headline' && Boolean(article.picture)
+  const showIngress = variant !== 'headline' && Boolean(article.ingress)
 
   const articleMarkup = (
     <article className={`np-article np-article-${variant}`}>
-      {article.picture ? (
+      {showImage ? (
         <figure className="np-article-figure">
           <img src={article.picture} alt={article.title} loading="lazy" />
         </figure>
       ) : null}
 
-      <header>
-        {categoryRoute ? (
-          <Link className="np-category" to={categoryRoute}>
-            {article.category}
-          </Link>
-        ) : (
-          <p className="np-category">{article.category}</p>
-        )}
-        <h3>{article.title}</h3>
-      </header>
+      <div className="np-article-body">
+        <header>
+          {categoryRoute ? (
+            <Link className="np-category" to={categoryRoute}>
+              {article.category}
+            </Link>
+          ) : (
+            <p className="np-category">{article.category}</p>
+          )}
+          <h3>{article.title}</h3>
+        </header>
 
-      <p className="np-ingress">{article.ingress}</p>
+        {showIngress ? <p className="np-ingress">{article.ingress}</p> : null}
 
-      <footer>
-        <span>{article.byline}</span>
-        <time dateTime={article.timestamp}>{article.readableTime}</time>
-      </footer>
+        <footer>
+          <span>{article.byline}</span>
+          <time dateTime={article.timestamp}>{article.readableTime}</time>
+        </footer>
+      </div>
     </article>
   )
 
