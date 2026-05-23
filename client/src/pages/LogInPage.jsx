@@ -3,6 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import Masthead from '../components/Masthead'
 import { loginAccount, registerAccount } from '../services/authService'
 import '../styles/LoginPage.css'
+import TypewriterLoader from '../components/Typewriterloader.jsx'
+
+const LOADER_MIN_MS = 5000
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
 function LoginPage() {
   const navigate = useNavigate()
@@ -18,6 +22,7 @@ function LoginPage() {
   const [status, setStatus] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
 
+  const [showLoader, setShowLoader] = useState(false)
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value })
   }
@@ -27,20 +32,25 @@ function LoginPage() {
     setError('')
     setStatus('')
     setIsSubmitting(true)
+    setShowLoader(true)
+    const loaderDelay = wait(LOADER_MIN_MS)
 
     try {
       if (formMode === 'register') {
-        await registerAccount({
-          firstName: credentials.firstName,
-          lastName: credentials.lastName,
-          email: credentials.email,
-          password: credentials.password,
-          role: registerRole,
-        })
+        await Promise.all([
+          registerAccount({
+            firstName: credentials.firstName,
+            lastName: credentials.lastName,
+            email: credentials.email,
+            password: credentials.password,
+            role: registerRole,
+          }),
+          loaderDelay,
+        ])
         setStatus('Konto opprettet. Logg inn for å fortsette.')
         setFormMode('login')
       } else {
-        const payload = await loginAccount(credentials)
+        const [payload] = await Promise.all([loginAccount(credentials), loaderDelay])
         const role = payload?.user?.role
         if (role === 'editor' || role === 'admin') {
           navigate('/admin')
@@ -49,12 +59,16 @@ function LoginPage() {
         }
       }
     } catch (submitError) {
+      await loaderDelay
       setError(submitError.message)
     } finally {
       setIsSubmitting(false)
+      setShowLoader(false)
     }
   }
-
+  if (showLoader) {
+    return <TypewriterLoader />
+}
   return (
     <div className="np-page-shell">
       <Masthead activeSection="" onSectionSelect={() => {}} />
@@ -164,7 +178,7 @@ function LoginPage() {
       <footer className="np-footer page-footer">
         <p>Footer TEXT | &copy; {new Date().getFullYear()}</p>
       </footer>
-    </div>
+    </div>  
   )
 }
 
