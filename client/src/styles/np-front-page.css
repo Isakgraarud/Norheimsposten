@@ -66,6 +66,35 @@
   line-height: 1;
 }
 
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+
+  background: #f4ecd8;
+}
+
+.typewriter {
+  font-size: 2rem;
+  font-family: "Courier New", monospace;
+
+  color: #1a1a1a;
+
+  letter-spacing: 1px;
+}
+
+.cursor {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
 .np-tagline {
   max-width: 9rem;
   text-align: right;
