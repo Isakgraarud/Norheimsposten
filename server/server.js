@@ -11,11 +11,11 @@ dotenv.config()
 const app = express()
 const port = process.env.PORT || 5001
 
-const allowedOrigins = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(',')
-  : ['http://localhost:5173']
+const corsOptions = process.env.ALLOWED_ORIGINS
+  ? { origin: process.env.ALLOWED_ORIGINS.split(',') }
+  : {}
 
-app.use(cors({ origin: allowedOrigins }))
+app.use(cors(corsOptions))
 app.use(express.json())
 
 app.get('/', (_req, res) => {
