@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
+import Masthead from '../components/Masthead.jsx';
+import '../styles/np-front-page.css';
 
 const FlappyBird = () => {
     const canvasRef = useRef(null);

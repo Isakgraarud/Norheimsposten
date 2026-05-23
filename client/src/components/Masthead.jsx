@@ -6,7 +6,7 @@ export const NAV_SECTIONS = [
     'News',
     'Memes',
     'About Us',
-    'Games'
+    'Flappy'
 ]
 
 export const dateTimeLabel = new Date().toLocaleDateString('en-EN', {

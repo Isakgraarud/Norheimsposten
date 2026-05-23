@@ -1,4 +1,7 @@
-import { useState } from 'react'
-import Masthead from '../components/Masthead.jsx'
-import '../styles/np-front-page.css'
-<p>hello world</p>
+import NPFrontPage from './NPFrontPage.jsx'
+
+function NewsPage() {
+	return <NPFrontPage initialSection="News" articleCategory="Nyheter" />
+}
+
+export default NewsPage

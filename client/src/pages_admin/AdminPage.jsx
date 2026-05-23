@@ -6,7 +6,7 @@ import { getAuthState } from '../services/authService'
 function AdminPage() {
   const [formData, setFormData] = useState({
     title: '',
-    category: 'Nyheter',
+    category: 'News',
     ingress: '',
     picture: '',
     content: '',
