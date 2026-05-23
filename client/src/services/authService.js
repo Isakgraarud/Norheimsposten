@@ -59,10 +59,10 @@ export const getAuthState = () => readAuthState()
 export const getAuthToken = () => readAuthState()?.token ?? ''
 export const clearAuthState = () => localStorage.removeItem(AUTH_STORAGE_KEY)
 
-export const registerAccount = async ({ email, password, role }) => {
+export const registerAccount = async ({ firstName, lastName, email, password, role }) => {
   return requestJson('/register', {
     method: 'POST',
-    body: JSON.stringify({ email, password, role }),
+    body: JSON.stringify({ firstName, lastName, email, password, role }),
   })
 }
 

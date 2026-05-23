@@ -8,6 +8,8 @@ function LoginPage() {
   const navigate = useNavigate()
   const [formMode, setFormMode] = useState('login')
   const [credentials, setCredentials] = useState({
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
   })
@@ -29,6 +31,8 @@ function LoginPage() {
     try {
       if (formMode === 'register') {
         await registerAccount({
+          firstName: credentials.firstName,
+          lastName: credentials.lastName,
           email: credentials.email,
           password: credentials.password,
           role: registerRole,
@@ -63,6 +67,36 @@ function LoginPage() {
             </header>
 
             <form onSubmit={handleSubmit} className="login-form">
+              {formMode === 'register' ? (
+                <div className="form-group">
+                  <label>FIRST NAME</label>
+                  <input
+                    type="text"
+                    name="firstName"
+                    value={credentials.firstName}
+                    onChange={handleChange}
+                    required
+                    className="login-input"
+                    autoComplete="given-name"
+                  />
+                </div>
+              ) : null}
+
+              {formMode === 'register' ? (
+                <div className="form-group">
+                  <label>LAST NAME</label>
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={credentials.lastName}
+                    onChange={handleChange}
+                    required
+                    className="login-input"
+                    autoComplete="family-name"
+                  />
+                </div>
+              ) : null}
+
               <div className="form-group">
                 <label>EMAIL</label>
                 <input
@@ -72,6 +106,7 @@ function LoginPage() {
                   onChange={handleChange}
                   required
                   className="login-input"
+                  autoComplete="email"
                 />
               </div>
 

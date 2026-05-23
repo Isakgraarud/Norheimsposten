@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken'
 import User from '../models/User.js'
+import { composeUserDisplayName } from '../utils/userDisplayName.js'
 
 const getBearerToken = (headerValue = '') => {
   if (!headerValue.startsWith('Bearer ')) {
@@ -22,7 +23,7 @@ export const requireAuth = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, jwtSecret)
-    const user = await User.findById(decoded.sub).select('email role').lean()
+    const user = await User.findById(decoded.sub).select('firstName lastName email role').lean()
 
     if (!user) {
       return res.status(401).json({ message: 'Ugyldig bruker' })
@@ -30,8 +31,11 @@ export const requireAuth = async (req, res, next) => {
 
     req.user = {
       id: String(decoded.sub),
+      firstName: user.firstName,
+      lastName: user.lastName,
       email: user.email,
       role: user.role,
+      displayName: composeUserDisplayName(user),
     }
     return next()
   } catch (_error) {
