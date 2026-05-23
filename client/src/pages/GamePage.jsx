@@ -16,17 +16,18 @@ function GamePage() {
 			<main className="np-main" id="main-content">
 				<section className="np-about-section">
 					<header className="np-about-header">
-						<h1>Games</h1>
-						<p className="np-about-tagline">Play the built-in mini game from Norheimsposten</p>
+						<h1>FlappyBird</h1>
+						<p className="np-about-tagline">I likhet med andre store aviser har og så Norheimsposten sitt eget spill</p>
 					</header>
 
 					<article className="np-about-content">
 						<section className="np-about-block">
 							<h2>Flappy Bird</h2>
-							<p>The game lives on its own route, so this page acts as the games hub.</p>
-							<p>
-								<Link to="/flappy">Open Flappy Bird</Link>
-							</p>
+							<div onClick={ () => alert("Isak ... dette må du fikse sjæl ass")}>
+                                <p>Lyst til å spille Flappy Bird? trykk --{">"} her!</p>
+
+                            </div>
+							
 						</section>
 					</article>
 				</section>

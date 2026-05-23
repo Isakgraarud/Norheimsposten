@@ -43,7 +43,7 @@ function Masthead({ onSectionSelect, activeSection }) {
       case 'Memes':
         navigate('/memes')
         break
-      case 'Games':
+      case 'Flappy':
         navigate('/games')
         break
       default:
