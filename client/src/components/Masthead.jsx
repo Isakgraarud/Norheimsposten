@@ -5,7 +5,8 @@ export const NAV_SECTIONS = [
     'Home',
     'News',
     'Memes',
-    'About Us'
+    'About Us',
+    'Games'
 ]
 
 export const dateTimeLabel = new Date().toLocaleDateString('en-EN', {
@@ -29,10 +30,24 @@ function Masthead({ onSectionSelect, activeSection }) {
   }
 
   const handleSectionClick = (section) => {
-    if (section === 'About Us') {
-      navigate('/about')
-    } else {
-      onSectionSelect(section)
+    switch (section) {
+      case 'Home':
+        navigate('/')
+        break
+      case 'About Us':
+        navigate('/about')
+        break
+      case 'News':
+        navigate('/news')
+        break
+      case 'Memes':
+        navigate('/memes')
+        break
+      case 'Games':
+        navigate('/games')
+        break
+      default:
+        onSectionSelect(section)
     }
   }
 
