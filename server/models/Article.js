@@ -12,6 +12,11 @@ const articleSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    picture: {
+      type: String,
+      trim: true,
+      required: false,
+    },
     ingress: {
       type: String,
       trim: true,
