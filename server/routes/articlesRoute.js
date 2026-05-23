@@ -60,6 +60,29 @@ router.get('/:id', async (req, res) => {
   }
 })
 
+router.delete('/:id', requireAuth, requireRole('admin'), async (req, res) => {
+  if (!isDatabaseReady(res)) {
+    return
+  }
+
+  const { id } = req.params
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ message: 'Ugyldig artikkel-id' })
+  }
+
+  try {
+    const deletedArticle = await Article.findByIdAndDelete(id).lean()
+
+    if (!deletedArticle) {
+      return res.status(404).json({ message: 'Fant ikke artikkel' })
+    }
+
+    return res.json({ id: deletedArticle._id, message: 'Artikkelen er slettet' })
+  } catch (error) {
+    return res.status(500).json({ message: 'Serverfeil', error: error.message })
+  }
+})
+
 router.post('/', requireAuth, requireRole('editor', 'admin'), async (req, res) => {
   if (!isDatabaseReady(res)) {
     return

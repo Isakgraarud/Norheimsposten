@@ -16,6 +16,33 @@ function isDatabaseReady(res) {
   return true
 }
 
+router.get('/', requireAuth, requireRole('admin'), async (_req, res) => {
+  if (!isDatabaseReady(res)) {
+    return
+  }
+
+  try {
+    const users = await User.find({})
+      .select('firstName lastName email role createdAt')
+      .sort({ createdAt: -1 })
+      .lean()
+
+    return res.json(
+      users.map((user) => ({
+        id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        role: user.role,
+        displayName: composeUserDisplayName(user),
+        createdAt: user.createdAt,
+      }))
+    )
+  } catch (error) {
+    return res.status(500).json({ message: 'Serverfeil', error: error.message })
+  }
+})
+
 router.patch('/:id/role', requireAuth, requireRole('admin'), async (req, res) => {
   if (!isDatabaseReady(res)) {
     return
@@ -24,6 +51,10 @@ router.patch('/:id/role', requireAuth, requireRole('admin'), async (req, res) =>
   const { id } = req.params
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ message: 'Ugyldig bruker-id' })
+  }
+
+  if (String(req.user?.id) === String(id)) {
+    return res.status(400).json({ message: 'Du kan ikke endre din egen rolle' })
   }
 
   const requestedRole =

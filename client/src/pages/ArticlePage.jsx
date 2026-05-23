@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import Masthead from '../components/Masthead.jsx'
-import { fetchArticleById } from '../services/articleService'
+import { deleteArticle, fetchArticleById } from '../services/articleService'
+import { getAuthState } from '../services/authService'
 import { getCategoryRoute } from '../utils/categoryRoutes.js'
 import '../styles/np-front-page.css'
 
@@ -11,6 +12,27 @@ function ArticlePage() {
   const [article, setArticle] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState('')
+  const [isDeleting, setIsDeleting] = useState(false)
+  const [deleteError, setDeleteError] = useState('')
+
+  const authState = getAuthState()
+  const isAdmin = authState?.user?.role === 'admin'
+
+  const handleDelete = async () => {
+    if (!window.confirm('Er du sikker på at du vil slette denne artikkelen?')) {
+      return
+    }
+
+    setDeleteError('')
+    setIsDeleting(true)
+    try {
+      await deleteArticle(articleId)
+      navigate('/')
+    } catch (deleteErr) {
+      setDeleteError(deleteErr.message)
+      setIsDeleting(false)
+    }
+  }
 
   useEffect(() => {
     const loadArticle = async () => {
@@ -84,6 +106,29 @@ function ArticlePage() {
                   <p key={`${article._id}-paragraph-${index}`}>{paragraph}</p>
                 ))}
             </section>
+
+            {isAdmin ? (
+              <div style={{ marginTop: '2rem', paddingTop: '1rem', borderTop: '1px solid #ddd' }}>
+                {deleteError ? (
+                  <p style={{ color: '#c53030', marginBottom: '0.5rem' }}>{deleteError}</p>
+                ) : null}
+                <button
+                  type="button"
+                  onClick={handleDelete}
+                  disabled={isDeleting}
+                  style={{
+                    padding: '10px 16px',
+                    backgroundColor: '#c53030',
+                    color: '#fff',
+                    border: 'none',
+                    cursor: isDeleting ? 'not-allowed' : 'pointer',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  {isDeleting ? 'Sletter...' : 'Slett artikkel'}
+                </button>
+              </div>
+            ) : null}
 
             <p className="np-article-view-backlink">
               <Link to="/">Tilbake til forsiden</Link>

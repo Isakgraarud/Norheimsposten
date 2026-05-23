@@ -6,6 +6,7 @@ import NotFound from './pages/NotFound.jsx'
 import ArticlePage from './pages/ArticlePage.jsx'
 import AboutPage from './pages/AboutPage.jsx'
 import AdminPage from './pages_admin/AdminPage.jsx'
+import AdminUsersPage from './pages_admin/AdminUsersPage.jsx'
 import FlappyPage from './games/flappy.jsx'
 import MemesPage from './pages/MemesPage.jsx'
 import NewsPage from './pages/NewsPage.jsx'
@@ -17,6 +18,16 @@ function AdminProtectedRoute({ children }) {
   const isAllowed = userRole === 'editor' || userRole === 'admin'
 
   if (!isAllowed) {
+    return <Navigate to="/login" replace />
+  }
+
+  return children
+}
+
+function AdminOnlyRoute({ children }) {
+  const authState = getAuthState()
+
+  if (authState?.user?.role !== 'admin') {
     return <Navigate to="/login" replace />
   }
 
@@ -40,6 +51,14 @@ function App() {
           <AdminProtectedRoute>
             <AdminPage />
           </AdminProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/users"
+        element={
+          <AdminOnlyRoute>
+            <AdminUsersPage />
+          </AdminOnlyRoute>
         }
       />
       <Route path="*" element={<NotFound />} />

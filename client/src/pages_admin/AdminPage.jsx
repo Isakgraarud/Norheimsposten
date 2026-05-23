@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import Masthead from '../components/Masthead'
 import { createArticle } from '../services/articleService'
 import { getAuthState } from '../services/authService'
@@ -60,6 +61,11 @@ function AdminPage() {
               <p style={{ marginTop: '0.5rem', color: '#555' }}>
                 Innlogget som: {authState?.user?.displayName || authState?.user?.email || 'ukjent bruker'}
               </p>
+              {authState?.user?.role === 'admin' ? (
+                <p style={{ marginTop: '0.5rem' }}>
+                  <Link to="/admin/users">Administrer brukere &rarr;</Link>
+                </p>
+              ) : null}
             </header>
 
             <form

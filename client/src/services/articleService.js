@@ -34,6 +34,28 @@ export const fetchArticleById = async (articleId) => {
   return payload
 }
 
+export const deleteArticle = async (articleId) => {
+  const token = getAuthToken()
+  if (!token) {
+    throw new Error('Du må være logget inn for å slette')
+  }
+
+  const response = await fetch(`${API_BASE}/${articleId}`, {
+    method: 'DELETE',
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  const payload = await response.json().catch(() => ({}))
+  if (!response.ok) {
+    throw new Error(payload.message || 'Kunne ikke slette artikkel')
+  }
+
+  return payload
+}
+
 export const createArticle = async (articleInput) => {
   const token = getAuthToken()
   if (!token) {
