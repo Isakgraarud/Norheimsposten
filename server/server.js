@@ -11,7 +11,11 @@ dotenv.config()
 const app = express()
 const port = process.env.PORT || 5001
 
-app.use(cors())
+const corsOptions = process.env.ALLOWED_ORIGINS
+  ? { origin: process.env.ALLOWED_ORIGINS.split(',') }
+  : {}
+
+app.use(cors(corsOptions))
 app.use(express.json())
 
 app.get('/', (_req, res) => {

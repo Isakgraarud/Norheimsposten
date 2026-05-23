@@ -1,6 +1,6 @@
 import { getAuthToken } from './authService'
 
-const API_BASE = '/api/articles'
+const API_BASE = `${import.meta.env.VITE_API_BASE_URL ?? ''}/api/articles`
 
 export const fetchArticles = async (category) => {
   const url = new URL(API_BASE, window.location.origin)
