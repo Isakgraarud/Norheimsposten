@@ -2,8 +2,14 @@ import { getAuthToken } from './authService'
 
 const API_BASE = '/api/articles'
 
-export const fetchArticles = async () => {
-  const response = await fetch(API_BASE, {
+export const fetchArticles = async (category) => {
+  const url = new URL(API_BASE, window.location.origin)
+
+  if (category) {
+    url.searchParams.set('category', category)
+  }
+
+  const response = await fetch(url, {
     headers: { Accept: 'application/json' },
   })
 

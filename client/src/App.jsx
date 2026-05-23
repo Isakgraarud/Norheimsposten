@@ -7,6 +7,9 @@ import ArticlePage from './pages/ArticlePage.jsx'
 import AboutPage from './pages/AboutPage.jsx'
 import AdminPage from './pages_admin/AdminPage.jsx'
 import FlappyPage from './games/flappy.jsx'
+import MemesPage from './pages/MemesPage.jsx'
+import NewsPage from './pages/NewsPage.jsx'
+import GamePage from './pages/GamePage.jsx'
 
 function AdminProtectedRoute({ children }) {
   const authState = getAuthState()
@@ -27,7 +30,10 @@ function App() {
       <Route path="/articles/:articleId" element={<ArticlePage />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/flappy" element={<FlappyPage />} />
+      <Route path="/news" element={<NewsPage />} />
+      <Route path="/memes" element={<MemesPage />} />
+      <Route path="/games" element={<GamePage />} />
+      <Route path="/game" element={<GamePage />} />
       <Route
         path="/admin"
         element={
