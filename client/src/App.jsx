@@ -6,6 +6,7 @@ import NotFound from './pages/NotFound.jsx'
 import ArticlePage from './pages/ArticlePage.jsx'
 import AboutPage from './pages/AboutPage.jsx'
 import AdminPage from './pages_admin/AdminPage.jsx'
+import FlappyPage from './games/flappy.jsx'
 
 function AdminProtectedRoute({ children }) {
   const authState = getAuthState()
@@ -26,6 +27,7 @@ function App() {
       <Route path="/articles/:articleId" element={<ArticlePage />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/flappy" element={<FlappyPage />} />
       <Route
         path="/admin"
         element={

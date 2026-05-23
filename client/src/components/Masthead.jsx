@@ -20,6 +20,7 @@ function Masthead({ onSectionSelect, activeSection }) {
   const navigate = useNavigate()
   const authState = getAuthState()
   const userRole = authState?.user?.role
+  const displayName = authState?.user?.displayName || authState?.user?.email || ''
   const canPost = userRole === 'editor' || userRole === 'admin'
 
   const handleLogout = () => {
@@ -43,6 +44,8 @@ function Masthead({ onSectionSelect, activeSection }) {
             ACCOUNT:{' '}
               {authState ? (
                 <>
+                  {displayName ? <span>{displayName}</span> : null}
+                  {displayName ? ' ' : null}
                   {canPost ? <a href="/admin" className="np-login-link">ADMIN</a> : null}
                   {' '}
                   <button type="button" className="np-login-link" onClick={handleLogout}>LOG OUT</button>

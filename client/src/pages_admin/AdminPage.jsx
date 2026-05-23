@@ -46,7 +46,7 @@ function AdminPage() {
               <h1 style={{ margin: '0.5rem 0' }}>Opprett Ny Artikkel</h1>
               <p>Fyll ut feltene under for å publisere en ny sak til forsiden.</p>
               <p style={{ marginTop: '0.5rem', color: '#555' }}>
-                Innlogget som: {authState?.user?.email || 'ukjent bruker'}
+                Innlogget som: {authState?.user?.displayName || authState?.user?.email || 'ukjent bruker'}
               </p>
             </header>
 

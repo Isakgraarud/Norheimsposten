@@ -2,6 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import { requireAuth, requireRole } from '../middleware/authMiddleware.js'
 import Article from '../models/Article.js'
+import { composeUserDisplayName } from '../utils/userDisplayName.js'
 
 const router = express.Router()
 
@@ -74,7 +75,7 @@ router.post('/', requireAuth, requireRole('editor', 'admin'), async (req, res) =
       category,
       ingress,
       content,
-      authorName: req.user.email,
+      authorName: composeUserDisplayName(req.user),
       status: 'published',
       publishedAt: new Date(),
     })

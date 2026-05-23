@@ -108,11 +108,6 @@ Base URL: `/api`
 - `GET /articles/:id`
 - `POST /articles` (requires `editor` or `admin` token)
 
-### Movies
-
-- `GET /movies`
-- `POST /movies`
-
 ## Notes
 
 - The API will exit on startup if `MONGO_URI` is missing or MongoDB cannot be reached.
