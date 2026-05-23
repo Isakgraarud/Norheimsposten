@@ -17,7 +17,6 @@ function LoginPage() {
     email: '',
     password: '',
   })
-  const [registerRole, setRegisterRole] = useState('reader')
   const [error, setError] = useState('')
   const [status, setStatus] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -43,7 +42,6 @@ function LoginPage() {
             lastName: credentials.lastName,
             email: credentials.email,
             password: credentials.password,
-            role: registerRole,
           }),
           loaderDelay,
         ])
@@ -136,21 +134,6 @@ function LoginPage() {
                   className="login-input"
                 />
               </div>
-
-              {formMode === 'register' ? (
-                <div className="form-group">
-                  <label>ROLE</label>
-                  <select
-                    className="login-input"
-                    value={registerRole}
-                    onChange={(e) => setRegisterRole(e.target.value)}
-                  >
-                    <option value="reader">reader</option>
-                    <option value="editor">editor</option>
-                    <option value="admin">admin</option>
-                  </select>
-                </div>
-              ) : null}
 
               {error ? <p className="error-message">{error}</p> : null}
               {status ? <p className="success-message">{status}</p> : null}

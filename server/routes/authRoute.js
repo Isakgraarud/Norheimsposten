@@ -27,8 +27,6 @@ router.post('/register', async (req, res) => {
   const password = typeof req.body?.password === 'string' ? req.body.password : ''
   const firstName = normalizeName(req.body?.firstName)
   const lastName = normalizeName(req.body?.lastName)
-  const requestedRole = typeof req.body?.role === 'string' ? req.body.role.trim().toLowerCase() : 'reader'
-  const role = ['reader', 'editor', 'admin'].includes(requestedRole) ? requestedRole : 'reader'
 
   if (!firstName || !lastName || !email || !password || password.length < 8) {
     return res.status(400).json({
@@ -43,7 +41,13 @@ router.post('/register', async (req, res) => {
     }
 
     const passwordHash = await bcrypt.hash(password, 12)
-    const createdUser = await User.create({ firstName, lastName, email, passwordHash, role })
+    const createdUser = await User.create({
+      firstName,
+      lastName,
+      email,
+      passwordHash,
+      role: 'reader',
+    })
     const displayName = composeUserDisplayName(createdUser)
 
     return res.status(201).json({

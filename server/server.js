@@ -5,6 +5,7 @@ import articlesRoute from './routes/articlesRoute.js'
 import authRoute from './routes/authRoute.js'
 import connectDB from './config/db.js'
 import healthRoute from './routes/healthRoute.js'
+import usersRoute from './routes/usersRoute.js'
 
 dotenv.config()
 
@@ -25,6 +26,7 @@ app.get('/', (_req, res) => {
 app.use('/api/health', healthRoute)
 app.use('/api/auth', authRoute)
 app.use('/api/articles', articlesRoute)
+app.use('/api/users', usersRoute)
 
 const startServer = async () => {
   await connectDB()
