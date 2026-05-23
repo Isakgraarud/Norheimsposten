@@ -81,7 +81,7 @@ function AdminPage() {
               </div>
 
               <div className="form-group" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <label style={{ fontWeight: '600' }}>Kategori</label>
+                <label style={{ fontWeight: '600' }}>Kategori - Velg mellom News, Meme, eller noe valgfritt</label>
                 <input
                   type="text"
                   name="category"
