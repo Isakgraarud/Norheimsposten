@@ -1,14 +1,23 @@
 import { Link } from 'react-router-dom'
+import { getCategoryRoute } from '../utils/categoryRoutes.js'
 
 function ArticleCard({ article, variant = 'standard' }) {
   if (!article) {
     return null
   }
 
+  const categoryRoute = getCategoryRoute(article.category)
+
   const articleMarkup = (
     <article className={`np-article np-article-${variant}`}>
       <header>
-        <p className="np-category">{article.category}</p>
+        {categoryRoute ? (
+          <Link className="np-category" to={categoryRoute}>
+            {article.category}
+          </Link>
+        ) : (
+          <p className="np-category">{article.category}</p>
+        )}
         <h3>{article.title}</h3>
       </header>
 

@@ -6,8 +6,9 @@ import { getAuthState } from '../services/authService'
 function AdminPage() {
   const [formData, setFormData] = useState({
     title: '',
-    category: 'Nyheter',
+    category: 'News',
     ingress: '',
+    picture: '',
     content: '',
   })
   const [status, setStatus] = useState({ type: '', msg: '' })
@@ -22,12 +23,23 @@ function AdminPage() {
     try {
       await createArticle(formData)
       setStatus({ type: 'success', msg: 'Artikkelen er publisert.' })
-      setFormData({ title: '', category: 'Nyheter', ingress: '', content: '' })
+      setFormData({ title: '', category: 'Nyheter', ingress: '', picture: '', content: '' })
     } catch (error) {
       setStatus({ type: 'error', msg: error.message })
     } finally {
       setIsSubmitting(false)
     }
+  }
+
+  const uploadImage = async (file) => {
+    const formData = new FormData()
+    formData.append('image', file)
+    // funekr ikke enda og er lit usikker på hvordan jeg skal løse det
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve('/path/to/uploaded/image.jpg')
+      }, 1000)
+    })
   }
 
   const handleChange = (e) => {
@@ -69,7 +81,7 @@ function AdminPage() {
               </div>
 
               <div className="form-group" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <label style={{ fontWeight: '600' }}>Kategori</label>
+                <label style={{ fontWeight: '600' }}>Kategori - Velg mellom News, Meme, eller noe valgfritt</label>
                 <input
                   type="text"
                   name="category"
@@ -102,6 +114,23 @@ function AdminPage() {
                   placeholder="Skriv selve artikkelen her..."
                   required
                   style={{ width: '100%', padding: '12px', boxSizing: 'border-box', resize: 'vertical' }}
+                />
+              </div>
+
+              <div>
+                <label style={{ fontWeight: '600' }}>Bilde (funker ikke)</label>
+                <input
+                  type="file"
+                  name="picture"
+                  onChange={(e) => {
+                    const file = e.target.files[0]
+                    if (file) {
+                      uploadImage(file).then((url) => {
+                        setFormData({ ...formData, picture: url })
+                      })
+                    }
+                  }}
+                  style={{ width: '100%', padding: '12px', boxSizing: 'border-box' }}
                 />
               </div>
 

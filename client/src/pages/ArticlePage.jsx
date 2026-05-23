@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import Masthead from '../components/Masthead.jsx'
 import { fetchArticleById } from '../services/articleService'
+import { getCategoryRoute } from '../utils/categoryRoutes.js'
 import '../styles/np-front-page.css'
 
 function ArticlePage() {
@@ -46,6 +47,8 @@ function ArticlePage() {
     })
   }, [article])
 
+  const categoryRoute = getCategoryRoute(article?.category)
+
   return (
     <div className="np-page-shell">
       <Masthead onSectionSelect={() => navigate('/')} activeSection="Home" />
@@ -57,7 +60,13 @@ function ArticlePage() {
         {!isLoading && !error && article ? (
           <article className="np-article-view">
             <header className="np-article-view-header">
-              <p className="np-category">{article.category}</p>
+              {categoryRoute ? (
+                <Link className="np-category" to={categoryRoute}>
+                  {article.category}
+                </Link>
+              ) : (
+                <p className="np-category">{article.category}</p>
+              )}
               <h1>{article.title}</h1>
               {article.ingress ? <p className="np-article-view-ingress">{article.ingress}</p> : null}
 

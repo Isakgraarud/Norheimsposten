@@ -5,8 +5,8 @@ import SectionBlock from '../components/SectionBlock.jsx'
 import { fetchArticles } from '../services/articleService'
 import '../styles/np-front-page.css'
 
-function NPFrontPage() {
-  const [activeSection, setActiveSection] = useState('Home')
+function NPFrontPage({ initialSection = 'Home', articleCategory = '' }) {
+  const [activeSection, setActiveSection] = useState(initialSection)
   const [articles, setArticles] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState('')
@@ -17,7 +17,7 @@ function NPFrontPage() {
       setIsLoading(true)
 
       try {
-        const loadedArticles = await fetchArticles()
+        const loadedArticles = await fetchArticles(articleCategory)
         setArticles(loadedArticles)
       } catch (loadError) {
         setError(loadError.message)
@@ -27,7 +27,7 @@ function NPFrontPage() {
     }
 
     loadArticles()
-  }, [])
+  }, [articleCategory])
 
   const handleSectionSelect = (section) => {
     setActiveSection(section)
@@ -37,6 +37,10 @@ function NPFrontPage() {
   }
 
   const visibleArticles = useMemo(() => {
+    if (articleCategory) {
+      return articles
+    }
+
     if (activeSection === 'Home') {
       return articles
     }

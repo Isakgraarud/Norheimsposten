@@ -14,13 +14,20 @@ function isDatabaseReady(res) {
   return true
 }
 
-router.get('/', async (_req, res) => {
+router.get('/', async (req, res) => {
   if (!isDatabaseReady(res)) {
     return
   }
 
+  const category = typeof req.query.category === 'string' ? req.query.category.trim() : ''
+  const query = { status: 'published' }
+
+  if (category) {
+    query.category = new RegExp(`^${category}$`, 'i')
+  }
+
   try {
-    const articles = await Article.find({ status: 'published' })
+    const articles = await Article.find(query)
       .sort({ publishedAt: -1 })
       .limit(30)
       .lean()

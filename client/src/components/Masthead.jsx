@@ -5,7 +5,8 @@ export const NAV_SECTIONS = [
     'Home',
     'News',
     'Memes',
-    'About Us'
+    'About Us',
+    'Flappy'
 ]
 
 export const dateTimeLabel = new Date().toLocaleDateString('en-EN', {
@@ -29,10 +30,24 @@ function Masthead({ onSectionSelect, activeSection }) {
   }
 
   const handleSectionClick = (section) => {
-    if (section === 'About Us') {
-      navigate('/about')
-    } else {
-      onSectionSelect(section)
+    switch (section) {
+      case 'Home':
+        navigate('/')
+        break
+      case 'About Us':
+        navigate('/about')
+        break
+      case 'News':
+        navigate('/news')
+        break
+      case 'Memes':
+        navigate('/memes')
+        break
+      case 'Flappy':
+        navigate('/games')
+        break
+      default:
+        onSectionSelect(section)
     }
   }
 
@@ -46,7 +61,7 @@ function Masthead({ onSectionSelect, activeSection }) {
                 <>
                   {displayName ? <span>{displayName}</span> : null}
                   {displayName ? ' ' : null}
-                  {canPost ? <a href="/admin" className="np-login-link">ADMIN</a> : null}
+                  {canPost ? <a href="/admin" className="np-login-link">Write new article</a> : null}
                   {' '}
                   <button type="button" className="np-login-link" onClick={handleLogout}>LOG OUT</button>
                 </>
@@ -60,7 +75,7 @@ function Masthead({ onSectionSelect, activeSection }) {
           <p className="np-tagline"></p>
           <div className="np-name">
               <span>
-                  <a href="/" > NORHEIMSPOSTEN </a>
+                   NORHEIMSPOSTEN
               </span>
             <p className="np-tagline"></p>
           </div>
