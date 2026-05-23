@@ -60,6 +60,48 @@ router.get('/:id', async (req, res) => {
   }
 })
 
+router.put('/:id', requireAuth, requireRole('editor', 'admin'), async (req, res) => {
+  if (!isDatabaseReady(res)) {
+    return
+  }
+
+  const { id } = req.params
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ message: 'Ugyldig artikkel-id' })
+  }
+
+  const updates = {}
+  if (typeof req.body?.title === 'string') updates.title = req.body.title.trim()
+  if (typeof req.body?.category === 'string') updates.category = req.body.category.trim()
+  if (typeof req.body?.ingress === 'string') updates.ingress = req.body.ingress.trim()
+  if (typeof req.body?.content === 'string') updates.content = req.body.content.trim()
+  if (typeof req.body?.picture === 'string') updates.picture = req.body.picture.trim()
+
+  if (updates.title === '' || updates.category === '' || updates.content === '') {
+    return res.status(400).json({
+      message: 'Ugyldig data. "title", "category" og "content" kan ikke være tomme.',
+    })
+  }
+
+  try {
+    const updatedArticle = await Article.findByIdAndUpdate(id, updates, {
+      new: true,
+      runValidators: true,
+    }).lean()
+
+    if (!updatedArticle) {
+      return res.status(404).json({ message: 'Fant ikke artikkel' })
+    }
+
+    return res.json(updatedArticle)
+  } catch (error) {
+    if (error.name === 'ValidationError' || error.name === 'CastError') {
+      return res.status(400).json({ message: 'Ugyldig artikkeldata', error: error.message })
+    }
+    return res.status(500).json({ message: 'Serverfeil', error: error.message })
+  }
+})
+
 router.delete('/:id', requireAuth, requireRole('admin'), async (req, res) => {
   if (!isDatabaseReady(res)) {
     return
@@ -92,6 +134,7 @@ router.post('/', requireAuth, requireRole('editor', 'admin'), async (req, res) =
   const category = typeof req.body?.category === 'string' ? req.body.category.trim() : ''
   const ingress = typeof req.body?.ingress === 'string' ? req.body.ingress.trim() : ''
   const content = typeof req.body?.content === 'string' ? req.body.content.trim() : ''
+  const picture = typeof req.body?.picture === 'string' ? req.body.picture.trim() : ''
 
   if (!title || !category || !content) {
     return res.status(400).json({
@@ -105,6 +148,7 @@ router.post('/', requireAuth, requireRole('editor', 'admin'), async (req, res) =
       category,
       ingress,
       content,
+      picture,
       authorName: composeUserDisplayName(req.user),
       status: 'published',
       publishedAt: new Date(),

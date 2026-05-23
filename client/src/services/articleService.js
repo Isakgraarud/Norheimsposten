@@ -56,6 +56,29 @@ export const deleteArticle = async (articleId) => {
   return payload
 }
 
+export const updateArticle = async (articleId, articleInput) => {
+  const token = getAuthToken()
+  if (!token) {
+    throw new Error('Du må være logget inn for å redigere')
+  }
+
+  const response = await fetch(`${API_BASE}/${articleId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(articleInput),
+  })
+
+  const payload = await response.json().catch(() => ({}))
+  if (!response.ok) {
+    throw new Error(payload.message || 'Kunne ikke oppdatere artikkel')
+  }
+
+  return payload
+}
+
 export const createArticle = async (articleInput) => {
   const token = getAuthToken()
   if (!token) {

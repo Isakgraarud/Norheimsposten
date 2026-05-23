@@ -61,7 +61,7 @@ function Masthead({ onSectionSelect, activeSection }) {
                 <>
                   {displayName ? <span>{displayName}</span> : null}
                   {displayName ? ' ' : null}
-                  {canPost ? <a href="/admin" className="np-login-link">Write new article</a> : null}
+                  {canPost ? <a href="/admin" className="np-login-link">DASH BOARD</a> : null}
                   {' '}
                   <button type="button" className="np-login-link" onClick={handleLogout}>LOG OUT</button>
                 </>

@@ -10,6 +10,12 @@ function ArticleCard({ article, variant = 'standard' }) {
 
   const articleMarkup = (
     <article className={`np-article np-article-${variant}`}>
+      {article.picture ? (
+        <figure className="np-article-figure">
+          <img src={article.picture} alt={article.title} loading="lazy" />
+        </figure>
+      ) : null}
+
       <header>
         {categoryRoute ? (
           <Link className="np-category" to={categoryRoute}>

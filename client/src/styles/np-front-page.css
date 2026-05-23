@@ -280,6 +280,39 @@
   letter-spacing: 0.04em;
 }
 
+.np-article-figure {
+  margin: 0 0 0.6rem;
+  overflow: hidden;
+  border: 1px solid var(--np-line);
+  background: #efe5d2;
+}
+
+.np-article-figure img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 16 / 9;
+}
+
+.np-article-lead .np-article-figure img { aspect-ratio: 16 / 9; }
+.np-article-standard .np-article-figure img { aspect-ratio: 4 / 3; }
+.np-article-compact .np-article-figure img { aspect-ratio: 3 / 2; }
+
+.np-article-view-figure {
+  margin: 1.25rem 0;
+  border: 1px solid var(--np-line);
+  background: #efe5d2;
+}
+
+.np-article-view-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 520px;
+  object-fit: cover;
+}
+
 .np-article-lead h3 {
   font-size: clamp(1.45rem, 3.2vw, 2.3rem);
 }

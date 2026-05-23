@@ -6,6 +6,8 @@ import NotFound from './pages/NotFound.jsx'
 import ArticlePage from './pages/ArticlePage.jsx'
 import AboutPage from './pages/AboutPage.jsx'
 import AdminPage from './pages_admin/AdminPage.jsx'
+import AdminArticlesManage from './pages_admin/AdminArticlesManage.jsx'
+import AdminArticleEditor from './pages_admin/AdminArticleEditor.jsx'
 import AdminUsersPage from './pages_admin/AdminUsersPage.jsx'
 import FlappyPage from './games/flappy.jsx'
 import MemesPage from './pages/MemesPage.jsx'
@@ -50,6 +52,30 @@ function App() {
         element={
           <AdminProtectedRoute>
             <AdminPage />
+          </AdminProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/articles"
+        element={
+          <AdminProtectedRoute>
+            <AdminArticlesManage />
+          </AdminProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/articles/new"
+        element={
+          <AdminProtectedRoute>
+            <AdminArticleEditor mode="new" />
+          </AdminProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/articles/:id/edit"
+        element={
+          <AdminProtectedRoute>
+            <AdminArticleEditor mode="edit" />
           </AdminProtectedRoute>
         }
       />

@@ -1,46 +1,65 @@
-import { useEffect, useState } from 'react'
-import { Link, Navigate } from 'react-router-dom'
-import Masthead from '../components/Masthead.jsx'
+import { useEffect, useMemo, useState } from 'react'
+import { Navigate } from 'react-router-dom'
+import AdminLayout from './AdminLayout.jsx'
 import { getAuthState } from '../services/authService'
 import { fetchUsers, updateUserRole } from '../services/userService'
 
 const ROLE_OPTIONS = ['reader', 'editor', 'admin']
 
 function AdminUsersPage() {
-  const authState = getAuthState()
-  const currentUserId = authState?.user?.id
-  const isAdmin = authState?.user?.role === 'admin'
+  const auth = getAuthState()
+  const currentUserId = auth?.user?.id
+  const isAdmin = auth?.user?.role === 'admin'
 
   const [users, setUsers] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState('')
   const [savingUserId, setSavingUserId] = useState('')
   const [feedback, setFeedback] = useState({ type: '', msg: '' })
+  const [roleFilter, setRoleFilter] = useState('all')
+  const [search, setSearch] = useState('')
 
   useEffect(() => {
-    if (!isAdmin) {
-      return
-    }
-
-    const loadUsers = async () => {
-      setError('')
-      setIsLoading(true)
+    if (!isAdmin) return
+    let cancelled = false
+    const load = async () => {
       try {
         const data = await fetchUsers()
-        setUsers(data)
+        if (!cancelled) setUsers(data)
       } catch (loadError) {
-        setError(loadError.message)
+        if (!cancelled) setError(loadError.message)
       } finally {
-        setIsLoading(false)
+        if (!cancelled) setIsLoading(false)
       }
     }
-
-    loadUsers()
+    load()
+    return () => {
+      cancelled = true
+    }
   }, [isAdmin])
 
-  if (!isAdmin) {
-    return <Navigate to="/" replace />
-  }
+  const filtered = useMemo(() => {
+    const q = search.trim().toLowerCase()
+    return users
+      .filter((u) => (roleFilter === 'all' ? true : u.role === roleFilter))
+      .filter((u) =>
+        q
+          ? u.displayName?.toLowerCase().includes(q) ||
+            u.email?.toLowerCase().includes(q)
+          : true
+      )
+  }, [users, roleFilter, search])
+
+  const counts = useMemo(
+    () => ({
+      admin: users.filter((u) => u.role === 'admin').length,
+      editor: users.filter((u) => u.role === 'editor').length,
+      reader: users.filter((u) => u.role === 'reader').length,
+    }),
+    [users]
+  )
+
+  if (!isAdmin) return <Navigate to="/" replace />
 
   const handleRoleChange = async (userId, nextRole) => {
     setFeedback({ type: '', msg: '' })
@@ -48,9 +67,9 @@ function AdminUsersPage() {
     try {
       const updated = await updateUserRole(userId, nextRole)
       setUsers((prev) =>
-        prev.map((user) => (user.id === userId ? { ...user, role: updated.role } : user))
+        prev.map((u) => (u.id === userId ? { ...u, role: updated.role } : u))
       )
-      setFeedback({ type: 'success', msg: `Rolle oppdatert for ${updated.displayName}` })
+      setFeedback({ type: 'success', msg: `Role updated for ${updated.displayName}` })
     } catch (saveError) {
       setFeedback({ type: 'error', msg: saveError.message })
     } finally {
@@ -59,102 +78,122 @@ function AdminUsersPage() {
   }
 
   return (
-    <div className="np-page-shell">
-      <Masthead activeSection="Admin" onSectionSelect={() => {}} />
+    <AdminLayout
+      pageTitle="Users & roles"
+      pageSubtitle="Promote readers to editors, or grant admin access. You can't change your own role."
+    >
+      {feedback.msg ? (
+        <div className={`cms-alert is-${feedback.type}`}>{feedback.msg}</div>
+      ) : null}
+      {error ? <div className="cms-alert is-error">{error}</div> : null}
 
-      <main className="np-main" style={{ padding: '20px', display: 'flex', justifyContent: 'center' }}>
-        <div className="np-admin-shell" style={{ width: '100%', maxWidth: '900px' }}>
-          <div className="np-admin-card">
-            <header className="np-admin-head" style={{ marginBottom: '2rem' }}>
-              <span className="np-admin-kicker">Adminpanel</span>
-              <h1 style={{ margin: '0.5rem 0' }}>Brukere</h1>
-              <p>Alle registrerte brukere. Endre rolle ved å velge i nedtrekkslisten.</p>
-              <p style={{ marginTop: '0.5rem' }}>
-                <Link to="/admin">&larr; Tilbake til skriv artikkel</Link>
-              </p>
-            </header>
+      <section className="cms-stats" aria-label="Role totals">
+        <div className="cms-stat">
+          <span className="cms-stat-label">Total users</span>
+          <span className="cms-stat-value">{users.length}</span>
+          <span className="cms-stat-foot">All registered accounts</span>
+        </div>
+        <div className="cms-stat">
+          <span className="cms-stat-label">Admins</span>
+          <span className="cms-stat-value">{counts.admin}</span>
+          <span className="cms-stat-foot">Full access</span>
+        </div>
+        <div className="cms-stat">
+          <span className="cms-stat-label">Editors</span>
+          <span className="cms-stat-value">{counts.editor}</span>
+          <span className="cms-stat-foot">Can publish articles</span>
+        </div>
+        <div className="cms-stat">
+          <span className="cms-stat-label">Readers</span>
+          <span className="cms-stat-value">{counts.reader}</span>
+          <span className="cms-stat-foot">View-only accounts</span>
+        </div>
+      </section>
 
-            {feedback.msg ? (
-              <div
-                style={{
-                  marginBottom: '1rem',
-                  padding: '12px',
-                  backgroundColor: feedback.type === 'success' ? '#e6fffa' : '#fff5f5',
-                  border: `1px solid ${feedback.type === 'success' ? '#38b2ac' : '#f56565'}`,
-                  color: feedback.type === 'success' ? '#2c7a7b' : '#c53030',
-                }}
-              >
-                {feedback.msg}
-              </div>
-            ) : null}
-
-            {isLoading ? <p>Laster brukere...</p> : null}
-            {error ? <p style={{ color: '#c53030' }}>{error}</p> : null}
-
-            {!isLoading && !error ? (
-              <div style={{ overflowX: 'auto' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                  <thead>
-                    <tr style={{ textAlign: 'left', borderBottom: '2px solid #000' }}>
-                      <th style={{ padding: '10px 8px' }}>Navn</th>
-                      <th style={{ padding: '10px 8px' }}>E-post</th>
-                      <th style={{ padding: '10px 8px' }}>Rolle</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {users.map((user) => {
-                      const isSelf = user.id === currentUserId
-                      const isSaving = savingUserId === user.id
-                      return (
-                        <tr key={user.id} style={{ borderBottom: '1px solid #ddd' }}>
-                          <td style={{ padding: '10px 8px' }}>
-                            {user.displayName}
-                            {isSelf ? (
-                              <span style={{ marginLeft: '6px', color: '#888', fontSize: '0.85em' }}>
-                                (deg)
-                              </span>
-                            ) : null}
-                          </td>
-                          <td style={{ padding: '10px 8px' }}>{user.email}</td>
-                          <td style={{ padding: '10px 8px' }}>
-                            <select
-                              value={user.role}
-                              disabled={isSelf || isSaving}
-                              onChange={(e) => handleRoleChange(user.id, e.target.value)}
-                              style={{ padding: '6px 8px' }}
-                            >
-                              {ROLE_OPTIONS.map((role) => (
-                                <option key={role} value={role}>
-                                  {role}
-                                </option>
-                              ))}
-                            </select>
-                            {isSaving ? (
-                              <span style={{ marginLeft: '8px', color: '#666' }}>lagrer...</span>
-                            ) : null}
-                          </td>
-                        </tr>
-                      )
-                    })}
-                    {users.length === 0 ? (
-                      <tr>
-                        <td colSpan={3} style={{ padding: '20px', textAlign: 'center', color: '#666' }}>
-                          Ingen brukere funnet.
-                        </td>
-                      </tr>
-                    ) : null}
-                  </tbody>
-                </table>
-              </div>
-            ) : null}
+      <div className="cms-card">
+        <div className="cms-card-head">
+          <h2 className="cms-card-title">All users ({filtered.length})</h2>
+          <div className="cms-filters">
+            <select value={roleFilter} onChange={(e) => setRoleFilter(e.target.value)}>
+              <option value="all">All roles</option>
+              {ROLE_OPTIONS.map((r) => (
+                <option key={r} value={r}>{r}</option>
+              ))}
+            </select>
+            <input
+              type="search"
+              placeholder="Search name or email…"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
           </div>
         </div>
-      </main>
-
-      <footer className="np-footer" style={{ textAlign: 'center', padding: '40px 0' }}>
-        <p>Footer TEXT | &copy; {new Date().getFullYear()}</p>
-      </footer>
-    </div>
+        <div className="cms-card-body is-flush">
+          <table className="cms-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Current role</th>
+                <th>Change role</th>
+              </tr>
+            </thead>
+            <tbody>
+              {isLoading ? (
+                <tr><td className="empty" colSpan={4}>Loading users…</td></tr>
+              ) : filtered.length === 0 ? (
+                <tr><td className="empty" colSpan={4}>No users match your filters.</td></tr>
+              ) : (
+                filtered.map((u) => {
+                  const isSelf = u.id === currentUserId
+                  const isSaving = savingUserId === u.id
+                  return (
+                    <tr key={u.id}>
+                      <td className="title-cell">
+                        {u.displayName}
+                        {isSelf ? (
+                          <span style={{ marginLeft: 6, color: 'var(--cms-muted)', fontWeight: 400, fontSize: '0.8em' }}>
+                            (you)
+                          </span>
+                        ) : null}
+                      </td>
+                      <td>{u.email}</td>
+                      <td>
+                        <span className={`cms-chip role-${u.role}`}>{u.role}</span>
+                      </td>
+                      <td>
+                        <div className="cms-row-actions" style={{ alignItems: 'center' }}>
+                          <select
+                            value={u.role}
+                            disabled={isSelf || isSaving}
+                            onChange={(e) => handleRoleChange(u.id, e.target.value)}
+                            style={{
+                              border: '1px solid var(--cms-line)',
+                              borderRadius: 6,
+                              padding: '0.35rem 0.6rem',
+                              background: 'var(--cms-bg)',
+                              font: 'inherit',
+                              color: 'var(--cms-text)',
+                            }}
+                          >
+                            {ROLE_OPTIONS.map((role) => (
+                              <option key={role} value={role}>{role}</option>
+                            ))}
+                          </select>
+                          {isSaving ? (
+                            <span style={{ color: 'var(--cms-muted)', fontSize: '0.85em' }}>saving…</span>
+                          ) : null}
+                        </div>
+                      </td>
+                    </tr>
+                  )
+                })
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </AdminLayout>
   )
 }
 
