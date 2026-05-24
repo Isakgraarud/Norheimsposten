@@ -1,5 +1,6 @@
 packages:
   - 'client'
   - 'server'
+  - 'worker'
 allowBuilds:
   esbuild: false

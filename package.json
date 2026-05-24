@@ -2,7 +2,8 @@
   "name": "norheimsposten-root",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"pnpm --filter server dev\" \"pnpm --filter client dev\""
+    "dev": "concurrently \"pnpm --filter server dev\" \"pnpm --filter client dev\"",
+    "dev:cf": "concurrently \"pnpm --filter worker dev\" \"pnpm --filter client dev\""
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
