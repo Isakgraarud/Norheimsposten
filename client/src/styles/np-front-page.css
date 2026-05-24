@@ -1,0 +1,771 @@
+@keyframes npRise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.np-page-shell {
+  width: min(1240px, 95vw);
+  margin: 1.5rem auto;
+  background: var(--np-paper);
+  border: 1px solid var(--np-line);
+  box-shadow: 0 18px 40px rgba(34, 25, 10, 0.15);
+}
+
+.np-masthead {
+  border-bottom: 2px solid var(--np-text);
+  padding: 0.8rem 1.2rem 0.3rem;
+}
+
+.np-topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  color: var(--np-muted);
+  font-family: var(--np-ui);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.np-brand-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.7rem 0;
+  border-top: 1px solid var(--np-line);
+  border-bottom: 1px solid var(--np-line);
+}
+
+.np-mark {
+  font-family: var(--np-title);
+  font-size: clamp(1.4rem, 3vw, 2.1rem);
+  color: var(--np-accent);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.np-name a {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+}
+
+.np-name {
+  color: inherit;
+  font-family: var(--np-title);
+  font-size: clamp(1.8rem, 5vw, 3.2rem);
+  text-align: center;
+  line-height: 1;
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+
+  background: #f4ecd8;
+}
+
+.typewriter {
+  font-size: 2rem;
+  font-family: "Courier New", monospace;
+
+  color: #1a1a1a;
+
+  letter-spacing: 1px;
+}
+
+.cursor {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.np-tagline {
+  max-width: 9rem;
+  text-align: right;
+  color: var(--np-muted);
+  font-family: var(--np-ui);
+  font-size: 0.85rem;
+}
+
+.np-nav {
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  overflow-x: auto;
+  padding: 0.4rem 0;
+}
+
+.np-nav ul {
+  list-style: none;
+  justify-content: center;
+  width: 100%;
+  display: flex;
+  gap: 0.3rem;
+  padding: 0;
+  margin: 0;
+}
+
+.np-nav button {
+  font-family: var(--np-ui);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.76rem;
+  padding: 0.4rem 0.55rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+}
+
+.np-nav button:hover,
+.np-nav button:focus-visible {
+  border-color: var(--np-line);
+  background: rgba(143, 47, 36, 0.06);
+  outline: none;
+}
+
+.np-nav button.is-active {
+  border-color: rgba(143, 47, 36, 0.35);
+  background: rgba(143, 47, 36, 0.12);
+  color: #4f170f;
+}
+
+.np-main {
+  padding: 1.2rem 1.2rem 1.6rem;
+}
+
+.np-status {
+  font-family: var(--np-ui);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+  color: var(--np-muted);
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.np-status-error {
+  color: var(--np-accent);
+}
+
+.np-empty {
+  text-align: center;
+  color: var(--np-muted);
+  font-style: italic;
+  padding: 2rem 0;
+}
+
+/* ============================================================
+   FRONT PAGE LAYOUT — dynamic article sizing
+   ============================================================ */
+
+.np-front-layout {
+  display: grid;
+  gap: 1.6rem;
+}
+
+/* --- Lead band: hero + side rail --- */
+
+.np-lead-band {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+  gap: 1.2rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 3px double var(--np-line);
+}
+
+.np-hero {
+  min-width: 0;
+}
+
+.np-side-rail {
+  min-width: 0;
+  display: grid;
+  gap: 0.9rem;
+  align-content: start;
+  padding-left: 1.2rem;
+  border-left: 1px solid var(--np-line);
+}
+
+.np-side-rail .np-article-link + .np-article-link .np-article,
+.np-side-rail > .np-article + .np-article {
+  border-top: 1px dashed var(--np-line);
+  padding-top: 0.9rem;
+}
+
+/* --- Band header (section divider with label) --- */
+
+.np-band-head {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.9rem;
+}
+
+.np-band-label {
+  font-family: var(--np-ui);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+  color: var(--np-accent);
+  font-weight: 700;
+  padding: 0.15rem 0.55rem;
+  border: 1px solid rgba(143, 47, 36, 0.4);
+  background: rgba(143, 47, 36, 0.06);
+  white-space: nowrap;
+}
+
+.np-band-rule {
+  flex: 1;
+  height: 0;
+  border-top: 3px double var(--np-line);
+}
+
+/* --- Secondary band: 3 equal columns --- */
+
+.np-secondary-band,
+.np-compact-band,
+.np-headlines-band {
+  padding-bottom: 0.4rem;
+}
+
+.np-secondary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.1rem;
+}
+
+/* --- Compact band: 4 small tiles --- */
+
+.np-compact-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+/* --- Headlines: text-only list --- */
+
+.np-headlines-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 1.6rem;
+}
+
+.np-headlines-list > li {
+  border-bottom: 1px dashed var(--np-line);
+}
+
+.np-headlines-list > li:last-child,
+.np-headlines-list > li:nth-last-child(2):nth-child(odd) {
+  border-bottom: none;
+}
+
+/* --- Category page grid (News, Memes, etc.) --- */
+
+.np-section-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.1rem;
+}
+
+.np-section-block {
+  border-top: 3px double var(--np-line);
+  padding-top: 0.9rem;
+}
+
+.np-section-head {
+  margin-bottom: 1rem;
+}
+
+.np-section-head h2 {
+  font-family: var(--np-title);
+  font-size: 1.5rem;
+}
+
+.np-section-head p {
+  font-family: var(--np-ui);
+  color: var(--np-muted);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   ARTICLE CARDS — variants
+   ============================================================ */
+
+.np-article-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  height: 100%;
+}
+
+.np-article-link:hover .np-article h3,
+.np-article-link:focus-visible .np-article h3 {
+  color: var(--np-accent);
+}
+
+.np-article-link:focus-visible {
+  outline: 2px solid rgba(143, 47, 36, 0.4);
+  outline-offset: 4px;
+}
+
+.np-article {
+  animation: npRise 450ms ease both;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.np-article-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+}
+
+.np-article-body header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.np-category {
+  color: var(--np-accent);
+  font-family: var(--np-ui);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.np-article h3 {
+  font-family: var(--np-title);
+  line-height: 1.15;
+  transition: color 0.15s ease;
+}
+
+.np-ingress {
+  color: #2f2b24;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.np-article footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--np-muted);
+  margin-top: auto;
+  padding-top: 0.5rem;
+  font-family: var(--np-ui);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.np-article-figure {
+  margin: 0 0 0.7rem;
+  overflow: hidden;
+  border: 1px solid var(--np-line);
+  background: #efe5d2;
+}
+
+.np-article-figure img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+  aspect-ratio: 16 / 9;
+}
+
+.np-article-link:hover .np-article-figure img,
+.np-article-link:focus-visible .np-article-figure img {
+  transform: scale(1.02);
+}
+
+/* --- Hero variant: dominant top-of-page story --- */
+
+.np-article-hero .np-article-figure img {
+  aspect-ratio: 16 / 9;
+}
+
+.np-article-hero h3 {
+  font-size: clamp(1.6rem, 3.4vw, 2.5rem);
+  font-weight: 700;
+  margin-top: 0.35rem;
+}
+
+.np-article-hero .np-category {
+  font-size: 0.82rem;
+}
+
+.np-article-hero .np-ingress {
+  font-size: clamp(0.98rem, 1.4vw, 1.1rem);
+  margin-top: 0.45rem;
+}
+
+/* --- Standard variant: secondary row --- */
+
+.np-article-standard .np-article-figure img {
+  aspect-ratio: 4 / 3;
+}
+
+.np-article-standard h3 {
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+}
+
+/* --- Compact variant: side rail + compact grid tiles --- */
+
+.np-article-compact .np-article-figure img {
+  aspect-ratio: 4 / 3;
+}
+
+.np-article-compact h3 {
+  font-size: clamp(0.96rem, 1.25vw, 1.05rem);
+  line-height: 1.2;
+}
+
+.np-article-compact .np-ingress {
+  font-size: 0.84rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.np-side-rail .np-article-compact .np-article-figure {
+  margin-bottom: 0.5rem;
+}
+
+.np-side-rail .np-article-compact .np-article-figure img {
+  aspect-ratio: 16 / 10;
+}
+
+.np-side-rail .np-article-compact .np-ingress {
+  display: none;
+}
+
+/* --- Headline variant: text-only --- */
+
+.np-article-headline {
+  padding: 0.7rem 0;
+}
+
+.np-article-headline .np-article-body {
+  gap: 0.25rem;
+}
+
+.np-article-headline h3 {
+  font-size: clamp(0.98rem, 1.3vw, 1.1rem);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.np-article-headline .np-category {
+  font-size: 0.68rem;
+}
+
+.np-article-headline footer {
+  padding-top: 0.3rem;
+  font-size: 0.68rem;
+}
+
+/* ============================================================
+   ARTICLE VIEW (single article page) — unchanged
+   ============================================================ */
+
+.np-article-view-figure {
+  margin: 1.25rem 0;
+  border: 1px solid var(--np-line);
+  background: #efe5d2;
+}
+
+.np-article-view-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 520px;
+  object-fit: cover;
+}
+
+.np-article-view {
+  max-width: 780px;
+  margin: 0 auto;
+  border-top: 2px solid var(--np-line);
+  padding-top: 1rem;
+}
+
+.np-article-view-header h1 {
+  font-family: var(--np-title);
+  font-size: clamp(1.6rem, 5vw, 2.8rem);
+  line-height: 1.12;
+  margin-top: 0.25rem;
+}
+
+.np-article-view-ingress {
+  font-size: clamp(1rem, 2.3vw, 1.22rem);
+  color: #2f2b24;
+  margin-top: 0.8rem;
+}
+
+.np-article-view-meta {
+  margin-top: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.7rem;
+  color: var(--np-muted);
+  font-family: var(--np-ui);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.76rem;
+}
+
+.np-article-view-content {
+  margin-top: 1rem;
+  display: grid;
+  gap: 1rem;
+  line-height: 1.65;
+}
+
+.np-article-view-content p {
+  font-size: 1.02rem;
+}
+
+.np-article-view-backlink {
+  margin-top: 1.2rem;
+  font-family: var(--np-ui);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.8rem;
+}
+
+.np-article-view-backlink a {
+  color: var(--np-accent);
+  text-decoration: none;
+}
+
+.np-article-view-backlink a:hover,
+.np-article-view-backlink a:focus-visible {
+  text-decoration: underline;
+}
+
+/* ============================================================
+   ABOUT PAGE — unchanged
+   ============================================================ */
+
+.np-about-section {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.np-about-header {
+  border-bottom: 2px solid var(--np-line);
+  padding-bottom: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.np-about-header h1 {
+  font-family: var(--np-title);
+  font-size: clamp(2rem, 6vw, 3rem);
+  line-height: 1.1;
+  margin: 0 0 0.5rem 0;
+}
+
+.np-about-tagline {
+  font-family: var(--np-ui);
+  color: var(--np-muted);
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.np-about-content {
+  display: grid;
+  gap: 2rem;
+}
+
+.np-about-block {
+  border-bottom: 1px dashed var(--np-line);
+  padding-bottom: 1.5rem;
+}
+
+.np-about-block:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.np-about-block h2 {
+  font-family: var(--np-title);
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  color: #4f170f;
+  margin: 0 0 0.7rem 0;
+}
+
+.np-about-block p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #2f2b24;
+  margin: 0;
+}
+
+.np-about-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.8rem 0 0 0;
+}
+
+.np-about-list li {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #2f2b24;
+  padding-left: 1.2rem;
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+
+.np-about-list li:before {
+  content: '▪';
+  position: absolute;
+  left: 0;
+  color: var(--np-accent);
+}
+
+.np-footer {
+  text-align: center;
+  border-top: 1px solid var(--np-line);
+  color: var(--np-muted);
+  font-family: var(--np-ui);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.72rem;
+  padding: 0.9rem 1.2rem;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  .np-brand-row {
+    text-decoration: none;
+    grid-template-columns: auto 1fr;
+  }
+
+  .np-tagline {
+    display: none;
+  }
+
+  .np-lead-band {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .np-side-rail {
+    padding-left: 0;
+    border-left: 0;
+    border-top: 1px dashed var(--np-line);
+    padding-top: 1rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.9rem;
+  }
+
+  .np-side-rail .np-article-compact .np-ingress {
+    display: -webkit-box;
+  }
+
+  .np-side-rail > .np-article + .np-article,
+  .np-side-rail .np-article-link + .np-article-link .np-article {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .np-compact-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .np-secondary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .np-about-header h1 {
+    font-size: clamp(1.4rem, 5vw, 2rem);
+  }
+
+  .np-about-block h2 {
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  }
+
+  .np-about-content {
+    gap: 1.5rem;
+  }
+
+  .np-page-shell {
+    width: 100%;
+    margin: 0;
+    border-left: 0;
+    border-right: 0;
+  }
+
+  .np-main {
+    padding: 0.9rem;
+  }
+
+  .np-front-layout {
+    gap: 1.3rem;
+  }
+
+  .np-name {
+    text-decoration: none;
+    color: inherit;
+    text-align: left;
+    font-size: clamp(1.6rem, 7.8vw, 2.5rem);
+  }
+
+  .np-side-rail,
+  .np-secondary-grid,
+  .np-compact-grid,
+  .np-headlines-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .np-headlines-list > li {
+    border-bottom: 1px dashed var(--np-line);
+  }
+
+  .np-headlines-list > li:last-child {
+    border-bottom: none;
+  }
+
+  .np-band-label {
+    font-size: 0.7rem;
+    padding: 0.1rem 0.45rem;
+  }
+
+  .np-article-hero h3 {
+    font-size: clamp(1.4rem, 6vw, 1.9rem);
+  }
+}
