@@ -19,11 +19,10 @@ jobs:
         with:
           node-version: 20
           cache: pnpm
-          cache-dependency-path: worker/pnpm-lock.yaml
+          cache-dependency-path: pnpm-lock.yaml
 
-      - name: Install worker dependencies
+      - name: Install dependencies
         run: pnpm install
-        working-directory: worker
 
       - name: Deploy Worker
         uses: cloudflare/wrangler-action@v3
