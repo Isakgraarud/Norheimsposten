@@ -37,17 +37,21 @@ Norheimsposten_React/
 
 ## Local Development
 
+See [docs/LOCAL_DEV.md](docs/LOCAL_DEV.md) for the full step-by-step setup guide, including database migration, secrets configuration, and creating a local admin account.
+
+**Quick start:**
+
 ```bash
 pnpm install
 cp worker/.dev.vars.example worker/.dev.vars
 # fill in JWT_SECRET in worker/.dev.vars
+# create client/.env.local with VITE_API_BASE_URL=http://localhost:8787
+pnpm --filter worker db:migrate:local
 pnpm dev:cf
 ```
 
 - Client: http://localhost:5173
 - Worker: http://localhost:8787
-
-Set `VITE_API_BASE_URL=http://localhost:8787` in `client/.env.local`.
 
 ## Deploying
 

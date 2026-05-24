@@ -5,13 +5,13 @@ node_modules/
 dist/
 dist-ssr/
 
-# uploaded media
-server/uploads/
-
 # local env files
-server/.env
+.env
 .env.local
 .env.*.local
+
+# Cloudflare Wrangler
+.wrangler/
 
 # logs
 npm-debug.log*
