@@ -14,6 +14,7 @@ function GamePage() {
 			<Masthead onSectionSelect={handleSectionSelect} activeSection="Games" />
 
 			<main className="np-main" id="main-content">
+				<div className="np-about-root">
 				<section className="np-about-section">
 					<header className="np-about-header">
 						<h1>FlappyBird</h1>
@@ -31,6 +32,7 @@ function GamePage() {
 						</section>
 					</article>
 				</section>
+				</div>
 			</main>
 
 			<footer className="np-footer">
