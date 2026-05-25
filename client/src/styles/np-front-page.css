@@ -1,14 +1,56 @@
-@keyframes npRise {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
+/* ============================================================
+   FRONT PAGE / SHARED NEWSPAPER CHROME
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+   This stylesheet is imported by most public pages because it
+   owns both the shared newspaper "page shell" (masthead, nav,
+   article view, footer) and the front-page-specific layout.
+
+   Sections
+   ──────────────────────────────────────────────────────
+   1. Animations & loader
+   2. Page shell + masthead + brand row
+   3. Nav, main, status, empty states
+   4. Front page layout (bands & grids)
+   5. Section pages (category grids)
+   6. Article cards — base + variants
+   7. Article view (single article page)
+   8. Footer
+   9. Responsive
+   ============================================================ */
+
+
+/* ───── 1. Animations & loader ───── */
+
+@keyframes npRise {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f4ecd8;
+}
+
+.typewriter {
+  font-size: 2rem;
+  font-family: "Courier New", monospace;
+  color: #1a1a1a;
+  letter-spacing: 1px;
+}
+
+.cursor {
+  animation: blink 1s infinite;
+}
+
+
+/* ───── 2. Page shell + masthead + brand row ───── */
 
 .np-page-shell {
   width: min(1240px, 95vw);
@@ -52,12 +94,6 @@
   letter-spacing: 0.04em;
 }
 
-.np-name a {
-  text-decoration: none;
-  color: inherit;
-  display: inline-block;
-}
-
 .np-name {
   color: inherit;
   font-family: var(--np-title);
@@ -66,33 +102,10 @@
   line-height: 1;
 }
 
-.loader-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  height: 100vh;
-
-  background: #f4ecd8;
-}
-
-.typewriter {
-  font-size: 2rem;
-  font-family: "Courier New", monospace;
-
-  color: #1a1a1a;
-
-  letter-spacing: 1px;
-}
-
-.cursor {
-  animation: blink 1s infinite;
-}
-
-@keyframes blink {
-  50% {
-    opacity: 0;
-  }
+.np-name a {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
 }
 
 .np-tagline {
@@ -102,6 +115,9 @@
   font-family: var(--np-ui);
   font-size: 0.85rem;
 }
+
+
+/* ───── 3. Nav, main, status, empty states ───── */
 
 .np-nav {
   align-self: center;
@@ -170,17 +186,15 @@
   padding: 2rem 0;
 }
 
-/* ============================================================
-   FRONT PAGE LAYOUT — dynamic article sizing
-   ============================================================ */
+
+/* ───── 4. Front page layout (bands & grids) ───── */
 
 .np-front-layout {
   display: grid;
   gap: 1.6rem;
 }
 
-/* --- Lead band: hero + side rail --- */
-
+/* Lead band: hero + side rail */
 .np-lead-band {
   display: grid;
   grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
@@ -208,8 +222,7 @@
   padding-top: 0.9rem;
 }
 
-/* --- Band header (section divider with label) --- */
-
+/* Band header (section divider with label) */
 .np-band-head {
   display: flex;
   align-items: center;
@@ -236,30 +249,28 @@
   border-top: 3px double var(--np-line);
 }
 
-/* --- Secondary band: 3 equal columns --- */
-
+/* Generic band padding */
 .np-secondary-band,
 .np-compact-band,
 .np-headlines-band {
   padding-bottom: 0.4rem;
 }
 
+/* Secondary band: 3 equal columns */
 .np-secondary-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.1rem;
 }
 
-/* --- Compact band: 4 small tiles --- */
-
+/* Compact band: 4 small tiles */
 .np-compact-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
 }
 
-/* --- Headlines: text-only list --- */
-
+/* Headlines: text-only list */
 .np-headlines-list {
   list-style: none;
   padding: 0;
@@ -278,7 +289,8 @@
   border-bottom: none;
 }
 
-/* --- Category page grid (News, Memes, etc.) --- */
+
+/* ───── 5. Section pages (News, Memes, etc.) ───── */
 
 .np-section-grid {
   display: grid;
@@ -308,9 +320,8 @@
   letter-spacing: 0.05em;
 }
 
-/* ============================================================
-   ARTICLE CARDS — variants
-   ============================================================ */
+
+/* ───── 6. Article cards — base + variants ───── */
 
 .np-article-link {
   display: block;
@@ -405,8 +416,7 @@
   transform: scale(1.02);
 }
 
-/* --- Hero variant: dominant top-of-page story --- */
-
+/* Hero variant: dominant top-of-page story */
 .np-article-hero .np-article-figure img {
   aspect-ratio: 16 / 9;
 }
@@ -426,8 +436,7 @@
   margin-top: 0.45rem;
 }
 
-/* --- Standard variant: secondary row --- */
-
+/* Standard variant: secondary row */
 .np-article-standard .np-article-figure img {
   aspect-ratio: 4 / 3;
 }
@@ -436,8 +445,7 @@
   font-size: clamp(1.05rem, 1.6vw, 1.25rem);
 }
 
-/* --- Compact variant: side rail + compact grid tiles --- */
-
+/* Compact variant: side rail + compact grid tiles */
 .np-article-compact .np-article-figure img {
   aspect-ratio: 4 / 3;
 }
@@ -467,8 +475,7 @@
   display: none;
 }
 
-/* --- Headline variant: text-only --- */
-
+/* Headline variant: text-only */
 .np-article-headline {
   padding: 0.7rem 0;
 }
@@ -492,23 +499,8 @@
   font-size: 0.68rem;
 }
 
-/* ============================================================
-   ARTICLE VIEW (single article page) — unchanged
-   ============================================================ */
 
-.np-article-view-figure {
-  margin: 1.25rem 0;
-  border: 1px solid var(--np-line);
-  background: #efe5d2;
-}
-
-.np-article-view-figure img {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-height: 520px;
-  object-fit: cover;
-}
+/* ───── 7. Article view (single article page) ───── */
 
 .np-article-view {
   max-width: 780px;
@@ -542,6 +534,20 @@
   font-size: 0.76rem;
 }
 
+.np-article-view-figure {
+  margin: 1.25rem 0;
+  border: 1px solid var(--np-line);
+  background: #efe5d2;
+}
+
+.np-article-view-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 520px;
+  object-fit: cover;
+}
+
 .np-article-view-content {
   margin-top: 1rem;
   display: grid;
@@ -572,6 +578,8 @@
 }
 
 
+/* ───── 8. Footer ───── */
+
 .np-footer {
   text-align: center;
   border-top: 1px solid var(--np-line);
@@ -583,9 +591,8 @@
   padding: 0.9rem 1.2rem;
 }
 
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
+
+/* ───── 9. Responsive ───── */
 
 @media (max-width: 1024px) {
   .np-brand-row {
@@ -620,13 +627,8 @@
     padding-top: 0;
   }
 
-  .np-compact-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .np-secondary-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+  .np-compact-grid   { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .np-secondary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 760px) {
