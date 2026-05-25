@@ -1,3 +1,13 @@
+/* ============================================================
+   COMMENTS SECTION
+   ------------------------------------------------------------
+   Used at the bottom of an article page: list of existing
+   comments + a form for logged-in users to submit a new one.
+   ============================================================ */
+
+
+/* ───── Section wrapper ───── */
+
 .np-comments {
   margin-top: 2.5rem;
   padding-top: 1.5rem;
@@ -19,6 +29,9 @@
   margin-bottom: 1.5rem;
 }
 
+
+/* ───── Comment list ───── */
+
 .np-comments-list {
   list-style: none;
   padding: 0;
@@ -31,6 +44,7 @@
 .np-comment {
   padding: 0.9rem 1rem;
   border: 1px solid var(--np-line);
+  border-radius: 10px;
   background: var(--np-bg);
 }
 
@@ -73,6 +87,9 @@
   font-size: 0.95rem;
   line-height: 1.55;
 }
+
+
+/* ───── Submission form ───── */
 
 .np-comment-form-wrapper {
   margin-top: 1rem;
@@ -136,6 +153,9 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+
+/* ───── Logged-out prompt ───── */
 
 .np-comment-login-prompt {
   font-size: 0.9rem;

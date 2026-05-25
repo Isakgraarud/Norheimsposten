@@ -1,12 +1,23 @@
+/* ============================================================
+   ABOUT PAGE
+   ------------------------------------------------------------
+   Editorial-style "about us" page with a dateline, intro
+   blockquote, and a grid of author cards.
+   ============================================================ */
 
+
+/* ───── Page wrapper ───── */
 
 .np-about-root {
-  font-family: 'Source Serif 4', Georgia, serif;
+  font-family: var(--np-body);
   color: var(--color-text-primary);
   max-width: 80%;
   margin: 0 auto;
   padding: 2rem 0;
 }
+
+
+/* ───── Dateline + section heading ───── */
 
 .np-about-dateline {
   display: flex;
@@ -21,7 +32,7 @@
 }
 
 .np-about-section-head {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: var(--np-title);
   font-size: 13px;
   font-weight: 400;
   letter-spacing: 3px;
@@ -31,6 +42,9 @@
   padding-bottom: 6px;
   margin-bottom: 2rem;
 }
+
+
+/* ───── Intro blockquote ───── */
 
 .np-about-intro {
   font-size: 15px;
@@ -43,9 +57,12 @@
   margin-bottom: 2.5rem;
 }
 
+
+/* ───── Author grid ───── */
+
 .np-about-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(min(400px, 100%), 1fr));
   gap: 2rem;
   margin-bottom: 2.5rem;
 }
@@ -62,7 +79,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: var(--np-title);
   font-size: 16px;
   font-weight: 700;
   margin-bottom: 0.75rem;
@@ -72,7 +89,7 @@
 }
 
 .np-about-card-name {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: var(--np-title);
   font-size: 20px;
   font-weight: 700;
   margin: 0 0 2px;
@@ -100,6 +117,9 @@
   color: var(--color-text-primary);
 }
 
+
+/* ───── Divider + footer quote ───── */
+
 .np-about-rule {
   border: none;
   border-top: 0.5px solid var(--color-border-tertiary);
@@ -108,13 +128,9 @@
 
 .np-about-footer-quote {
   text-align: center;
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: var(--np-title);
   font-size: 13px;
   font-style: italic;
   color: var(--color-text-secondary);
   padding-bottom: 1rem;
-}
-
-.np-about-grid {
-  grid-template-columns: repeat(auto-fill, minmax(min(400px, 100%), 1fr));
 }

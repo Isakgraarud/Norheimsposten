@@ -1,18 +1,52 @@
+/* ============================================================
+   ADMIN / CMS
+
+   Layout: left sidebar + top bar + main content area.
+   All selectors are prefixed `.cms-*` to keep this scoped
+   to the admin UI.
+
+   Sections
+   ──────────────────────────────────────────────────────
+   1. Design tokens
+   2. Shell
+   3. Sidebar
+   4. Main area  (topbar, content)
+   5. Page header
+   6. Stat cards
+   7. Surface cards
+   8. Layout columns
+   9. Filters
+   10. Table
+   11. Status pills
+   12. Row actions
+   13. Buttons
+   14. Quick tools
+   15. Forms
+   16. Alerts
+   17. Responsive
+   ============================================================ */
+
+
+/* ───── 1. Design tokens ───── */
+
 :root {
-  --cms-bg: #f4efe2;
-  --cms-surface: #fefcf7;
-  --cms-surface-2: #faf6ec;
-  --cms-line: #d8cebc;
-  --cms-line-strong: #1f1f1a;
-  --cms-text: #1f1f1a;
-  --cms-muted: #6c6457;
-  --cms-accent: #8f2f24;
-  --cms-accent-soft: rgba(143, 47, 36, 0.1);
-  --cms-good: #2f6a4a;
-  --cms-warn: #b97a16;
-  --cms-bad: #b6362b;
-  --cms-shadow: 0 1px 2px rgba(31, 31, 26, 0.06), 0 4px 14px rgba(31, 31, 26, 0.05);
+  --cms-bg:           #f4efe2;
+  --cms-surface:      #fefcf7;
+  --cms-surface-2:    #faf6ec;
+  --cms-line:         #d8cebc;
+  --cms-line-strong:  #1f1f1a;
+  --cms-text:         #1f1f1a;
+  --cms-muted:        #6c6457;
+  --cms-accent:       #8f2f24;
+  --cms-accent-soft:  rgba(143, 47, 36, 0.1);
+  --cms-good:         #2f6a4a;
+  --cms-warn:         #b97a16;
+  --cms-bad:          #b6362b;
+  --cms-shadow:       0 1px 2px rgba(31, 31, 26, 0.06), 0 4px 14px rgba(31, 31, 26, 0.05);
 }
+
+
+/* ───── 2. Shell ───── */
 
 .cms-shell {
   min-height: 100vh;
@@ -23,7 +57,9 @@
   font-family: var(--np-ui, 'Trebuchet MS', sans-serif);
 }
 
-/* ===== Sidebar ===== */
+
+/* ───── 3. Sidebar ───── */
+
 .cms-sidebar {
   background: var(--cms-surface);
   border-right: 1px solid var(--cms-line);
@@ -141,7 +177,9 @@
   gap: 2px;
 }
 
-/* ===== Main ===== */
+
+/* ───── 4. Main area ───── */
+
 .cms-main {
   display: flex;
   flex-direction: column;
@@ -228,8 +266,8 @@
   color: var(--cms-muted);
 }
 
-.cms-chip.role-admin { color: var(--cms-accent); border-color: var(--cms-accent); }
-.cms-chip.role-editor { color: var(--cms-good); border-color: var(--cms-good); }
+.cms-chip.role-admin  { color: var(--cms-accent); border-color: var(--cms-accent); }
+.cms-chip.role-editor { color: var(--cms-good);   border-color: var(--cms-good); }
 .cms-chip.role-reader { color: var(--cms-muted); }
 
 .cms-content {
@@ -239,7 +277,9 @@
   gap: 1.5rem;
 }
 
-/* ===== Page header ===== */
+
+/* ───── 5. Page header ───── */
+
 .cms-page-head {
   display: flex;
   justify-content: space-between;
@@ -266,7 +306,9 @@
   gap: 0.5rem;
 }
 
-/* ===== Stat cards ===== */
+
+/* ───── 6. Stat cards ───── */
+
 .cms-stats {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -318,7 +360,9 @@
   color: var(--cms-muted);
 }
 
-/* ===== Surface cards ===== */
+
+/* ───── 7. Surface cards ───── */
+
 .cms-card {
   background: var(--cms-surface);
   border: 1px solid var(--cms-line);
@@ -350,7 +394,9 @@
 
 .cms-card-body.is-flush { padding: 0; }
 
-/* ===== Layout columns ===== */
+
+/* ───── 8. Layout columns ───── */
+
 .cms-row {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 280px;
@@ -358,12 +404,9 @@
   align-items: flex-start;
 }
 
-@media (max-width: 1080px) {
-  .cms-row { grid-template-columns: 1fr; }
-  .cms-stats { grid-template-columns: repeat(2, 1fr); }
-}
 
-/* ===== Filters ===== */
+/* ───── 9. Filters ───── */
+
 .cms-filters {
   display: flex;
   gap: 0.5rem;
@@ -388,7 +431,9 @@
   border-color: var(--cms-accent);
 }
 
-/* ===== Table ===== */
+
+/* ───── 10. Table ───── */
+
 .cms-table {
   width: 100%;
   border-collapse: collapse;
@@ -414,10 +459,10 @@
 }
 
 .cms-table tbody tr:last-child td { border-bottom: 0; }
-.cms-table tbody tr:hover { background: var(--cms-surface-2); }
+.cms-table tbody tr:hover          { background: var(--cms-surface-2); }
 
 .cms-table .id-cell {
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-family: var(--np-ui);
   color: var(--cms-muted);
   font-size: 0.8rem;
 }
@@ -433,7 +478,9 @@
   color: var(--cms-muted);
 }
 
-/* ===== Status pills ===== */
+
+/* ───── 11. Status pills ───── */
+
 .cms-status {
   display: inline-flex;
   align-items: center;
@@ -455,11 +502,13 @@
   background: currentColor;
 }
 
-.cms-status.is-published { color: var(--cms-good); border-color: var(--cms-good); }
-.cms-status.is-draft { color: var(--cms-warn); border-color: var(--cms-warn); }
-.cms-status.is-review { color: var(--cms-muted); }
+.cms-status.is-published { color: var(--cms-good);  border-color: var(--cms-good); }
+.cms-status.is-draft     { color: var(--cms-warn);  border-color: var(--cms-warn); }
+.cms-status.is-review    { color: var(--cms-muted); }
 
-/* ===== Row actions ===== */
+
+/* ───── 12. Row actions ───── */
+
 .cms-row-actions {
   display: flex;
   gap: 0.4rem;
@@ -471,7 +520,9 @@
   font-size: 0.78rem;
 }
 
-/* ===== Buttons ===== */
+
+/* ───── 13. Buttons ───── */
+
 .cms-btn {
   display: inline-flex;
   align-items: center;
@@ -488,7 +539,7 @@
   transition: background 0.15s ease, border-color 0.15s ease, transform 0.05s ease;
 }
 
-.cms-btn:hover { background: var(--cms-surface-2); }
+.cms-btn:hover  { background: var(--cms-surface-2); }
 .cms-btn:active { transform: translateY(1px); }
 
 .cms-btn.is-primary {
@@ -504,12 +555,14 @@
 }
 .cms-btn.is-danger:hover { background: #fbe9e6; }
 
-.cms-btn.is-ghost { border-color: transparent; background: transparent; }
-.cms-btn.is-ghost:hover { background: var(--cms-surface-2); border-color: var(--cms-line); }
+.cms-btn.is-ghost        { border-color: transparent; background: transparent; }
+.cms-btn.is-ghost:hover  { background: var(--cms-surface-2); border-color: var(--cms-line); }
 
 .cms-btn[disabled] { opacity: 0.55; cursor: not-allowed; }
 
-/* ===== Quick tools ===== */
+
+/* ───── 14. Quick tools (sidebar widgets) ───── */
+
 .cms-quick {
   display: flex;
   flex-direction: column;
@@ -559,15 +612,13 @@
   font-weight: 700;
 }
 
-/* ===== Form ===== */
+
+/* ───── 15. Forms ───── */
+
 .cms-form {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 280px;
   gap: 1.25rem;
-}
-
-@media (max-width: 1080px) {
-  .cms-form { grid-template-columns: 1fr; }
 }
 
 .cms-form-stack {
@@ -615,7 +666,9 @@
   color: var(--cms-muted);
 }
 
-/* ===== Alerts ===== */
+
+/* ───── 16. Alerts ───── */
+
 .cms-alert {
   padding: 0.7rem 0.9rem;
   border-radius: 6px;
@@ -623,19 +676,29 @@
   font-size: 0.88rem;
 }
 
-.cms-alert.is-success { background: #eaf3ec; border-color: var(--cms-good); color: var(--cms-good); }
-.cms-alert.is-error { background: #fbe9e6; border-color: var(--cms-bad); color: var(--cms-bad); }
-.cms-alert.is-info { background: var(--cms-surface-2); border-color: var(--cms-line); color: var(--cms-muted); }
+.cms-alert.is-success { background: #eaf3ec;            border-color: var(--cms-good); color: var(--cms-good); }
+.cms-alert.is-error   { background: #fbe9e6;            border-color: var(--cms-bad);  color: var(--cms-bad); }
+.cms-alert.is-info    { background: var(--cms-surface-2); border-color: var(--cms-line); color: var(--cms-muted); }
 
-/* ===== Mobile sidebar ===== */
+
+/* ───── 17. Responsive ───── */
+
+@media (max-width: 1080px) {
+  .cms-row   { grid-template-columns: 1fr; }
+  .cms-form  { grid-template-columns: 1fr; }
+  .cms-stats { grid-template-columns: repeat(2, 1fr); }
+}
+
 @media (max-width: 860px) {
   .cms-shell { grid-template-columns: 1fr; }
+
   .cms-sidebar {
     position: relative;
     height: auto;
     border-right: 0;
     border-bottom: 1px solid var(--cms-line);
   }
+
   .cms-search input { width: 180px; }
-  .cms-stats { grid-template-columns: repeat(2, 1fr); }
+  .cms-stats        { grid-template-columns: repeat(2, 1fr); }
 }

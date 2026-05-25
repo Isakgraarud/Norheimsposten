@@ -1,106 +1,128 @@
-/* LoginPage.css */
+/* ============================================================
+   LOGIN PAGE
+   ------------------------------------------------------------
+   Standalone auth screen with a centred neo-brutalist card.
+   ============================================================ */
+
+
+/* ───── Page container & card ───── */
 
 .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 60vh;
-    padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  padding: 20px;
 }
 
 .login-card-wrapper {
-    width: 100%;
-    max-width: 400px;
+  width: 100%;
+  max-width: 400px;
 }
 
 .login-card {
-    background: #fff;
-    padding: 2.5rem;
-    border: 1px solid #000;
-    box-shadow: 8px 8px 0px #000;
+  background: #fff;
+  padding: 2.5rem;
+  border: 1px solid #000;
+  box-shadow: 8px 8px 0px #000;
 }
 
+
+/* ───── Header ───── */
+
 .login-header {
-    text-align: center;
-    margin-bottom: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
 .login-header h1 {
-    font-size: 1.8rem;
-    margin: 10px 0;
+  font-size: 1.8rem;
+  margin: 10px 0;
 }
 
+
+/* ───── Form ───── */
+
 .login-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .form-group label {
-    font-weight: bold;
-    font-size: 0.9rem;
+  font-weight: bold;
+  font-size: 0.9rem;
 }
 
 .login-input {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #000;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #000;
+  box-sizing: border-box;
 }
 
+
+/* ───── Status messages ───── */
+
 .error-message {
-    color: red;
-    font-size: 0.85rem;
-    text-align: center;
-    margin: 0;
+  color: red;
+  font-size: 0.85rem;
+  text-align: center;
+  margin: 0;
 }
 
 .success-message {
-    color: #2f855a;
-    font-size: 0.85rem;
-    text-align: center;
-    margin: 0;
+  color: #2f855a;
+  font-size: 0.85rem;
+  text-align: center;
+  margin: 0;
 }
 
+
+/* ───── Submit button ───── */
+
 .login-button {
-    width: 100%;
-    padding: 15px;
-    background-color: #000;
-    color: #fff;
-    border: none;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: transform 0.1s ease;
+  width: 100%;
+  padding: 15px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: transform 0.1s ease;
 }
 
 .login-button:active {
-    transform: translate(2px, 2px);
+  transform: translate(2px, 2px);
 }
 
+
+/* ───── Footer / mode switch ───── */
+
 .login-footer {
-    margin-top: 20px;
-    text-align: center;
+  margin-top: 20px;
+  text-align: center;
 }
 
 .login-switch {
-    font-size: 0.9rem;
-    color: #666;
-    text-decoration: underline;
-    background: transparent;
-    border: none;
-    cursor: pointer;
+  font-size: 0.9rem;
+  color: #666;
+  text-decoration: underline;
+  background: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 .page-footer {
-    text-align: center;
-    padding: 40px 0;
+  text-align: center;
+  padding: 40px 0;
 }
