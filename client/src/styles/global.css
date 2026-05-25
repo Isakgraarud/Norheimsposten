@@ -10,6 +10,12 @@
   --np-title: 'Fraunces', 'Times New Roman', serif;
   --np-body: 'Libre Baskerville', Georgia, serif;
   --np-ui: 'Trebuchet MS', sans-serif;
+
+  --color-text-primary: #1f1f1a;
+  --color-text-secondary: #6c6457;
+  --color-border-secondary: #d8cebc;
+  --color-border-tertiary: rgba(216, 206, 188, 0.5);
+  --color-background-secondary: #f6f2e8;
 }
 
 * {
