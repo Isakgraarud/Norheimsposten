@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Masthead from '../components/Masthead.jsx'
 import '../styles/np-front-page.css'
+import '../styles/np-about-page.css'
 
 function AboutPage() {
   const [activeSection] = useState('About Us')
@@ -16,64 +17,69 @@ function AboutPage() {
       <Masthead onSectionSelect={handleSectionSelect} activeSection={activeSection} />
 
       <main className="np-main" id="main-content">
-        <section className="np-about-section">
-          <header className="np-about-header">
-            <h1>About Us</h1>
-            <p className="np-about-tagline">News from the legendary Simon Norheim</p>
-          </header>
+        <div className="np-about-root">
+          <div>
+            <h1> Hvem vi er </h1>
+            <br/>
+          </div>
+          <div className="np-about-intro">
+            Norheimsposten er en uavhengig redaksjon bestående av fire Oslo-gutter fra Kjelsås, alle i aktiv
+            forfølgelse av samfunnets formelle definisjon av suksess. Vi dekker sakene andre ikke gidder å
+            dekke, med den grundigheten de ikke fortjener.
+          </div>
 
-          <article className="np-about-content">
-            <section className="np-about-block">
-              <h2>Our Mission</h2>
-              <p>
-                Look, we know you’re busy. That’s why Norheimsposten is 100% committed to bringing you medium-ish quality, semi-indie news.
-                We aren't the best, but we are definitely "there."
-                <br></br>
-                We write stuff for people who grew up in Nordre Aker and still haven't moved on emotionally.
-                Even though everyone lives in different places now and probably can't find your way back without Google Maps,
-                we want to keep us all together.
-              </p>
-            </section>
+          <div className="np-about-grid">
 
-            <section className="np-about-block">
-              <h2>Our History</h2>
-              <p>
-                Founded with a commitment to local journalism, Norheimsposten wants to be the cornerstone of our community.
-                We're dedicated to covering the stories that matter most to our readers.
-              </p>
-            </section>
+            <div className="np-about-card">
+              <div className="np-about-avatar">SN</div>
+              <p className="np-about-card-name">Simon Norheim</p>
+              <p className="np-about-card-role">Redaktør · Journalist · Reporter · Fotograf · Kommentator · Korrespondent</p>
+              <p className="np-about-card-body">
 
-            <section className="np-about-block">
-              <h2>What We Cover</h2>
-              <p>
-                Our newsroom covers a wide range of topics to keep you informed about what's happening in and around
-                Norheim. Whether it's breaking news, in-depth investigations, or community spotlights, we're here to
-                bring you the stories that matter.
-              </p>
-              <ul className="np-about-list">
-              </ul>
-            </section>
+              Simon er hjernen og sjelen bak Norheimsposten, og påtar seg med stort
+              alvor samtlige redaksjonelle roller avisen har å tilby. Til daglig studerer han ved
+              Luftforsvarsskolen. Han brygger sitt eget øl, har fullført ultramaraton, han er rett å slett en sikklig mannemann.
+              Han eier desverre ikke en Tesla.</p>
+            </div>
 
-            <section className="np-about-block">
-              <h2>Our Values</h2>
-              <p>
-                Values?
-              </p>
-            </section>
+            <div className="np-about-card">
+              <div className="np-about-avatar">IB</div>
+              <p className="np-about-card-name">Ivar Oppheim Barmen</p>
+              <p className="np-about-card-role">Porteføljeforvalter Eiendom</p>
+              <p className="np-about-card-body">
 
-            <section className="np-about-block">
-              <h2>Get In Touch</h2>
-              <p>
-                We value feedback from our readers and the community. Have a story tip? Want to advertise with us? Or
-                just want to say hello? Feel free to reach out to us through e-mail.
-              </p>
-            </section>
-          </article>
-        </section>
+              Ivar studerer ved NTNU og forvalter eiendomsporteføljen til Norheimsposten.
+              Han er også stolt eier av en Tesla. Dette ble nevnt under intervjuet tre ganger uten at det ble spurt om.
+              Redaksjonen ønsker å presisere at vi er glade på hans vegne. Han har også sin egen grill.</p>
+            </div>
+
+            <div className="np-about-card">
+              <div className="np-about-avatar">IG</div>
+              <p className="np-about-card-name">Isak Graarud</p>
+              <p className="np-about-card-role">Chief Technology Officer · UI/UX Designer</p>
+              <p className="np-about-card-body">
+
+              Isak er den teknologiske ryggraden i Norheimsposten og studerer
+              Informatikk ved UIB. Som CTO sørger han for at avisens digitale infrastruktur holder et nivå
+              ingen av de andre forstår seg på (noen ganger ikke han engang).
+              Isak er også syklist. Han eier en Cannondale Synapse Carbon Ultegra han bruker så ofte han kan. Han har ikke tesla.</p>
+            </div>
+
+            <div className="np-about-card">
+              <div className="np-about-avatar">VH</div>
+              <p className="np-about-card-name">Victor Beisland Hessevaagbakke</p>
+              <p className="np-about-card-role">Chief Information Security Officer</p>
+              <p className="np-about-card-body">
+
+              Victor sikrer at Norheimspostens digitale verdier er beskyttet mot
+              trusler utenfra. Han studerer Digital infrastruktur og cybersikkerhet ved NTNU, og har vært i
+              Pakistan på oppdrag for universitetet noe redaksjonen er stolte av. </p>
+            </div>
+          </div>
+        </div>
       </main>
-
       <footer className="np-footer">
-        <p>Footer TEXT | &copy; {new Date().getFullYear()}</p>
+        <p>Norheimsposten.no | &copy; {new Date().getFullYear()}</p>
       </footer>
     </div>
   )
