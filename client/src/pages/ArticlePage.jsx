@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import CommentsSection from '../components/CommentsSection.jsx'
 import Masthead from '../components/Masthead.jsx'
 import { fetchArticleById } from '../services/articleService'
 import { getCategoryRoute } from '../utils/categoryRoutes.js'
@@ -94,6 +95,8 @@ function ArticlePage() {
             <p className="np-article-view-backlink">
               <Link to="/">Tilbake til forsiden</Link>
             </p>
+
+            <CommentsSection articleId={articleId} />
           </article>
         ) : null}
       </main>

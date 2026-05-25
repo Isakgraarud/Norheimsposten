@@ -2,6 +2,7 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import auth from './routes/auth.js'
 import articles from './routes/articles.js'
+import comments from './routes/comments.js'
 import uploads from './routes/uploads.js'
 import users from './routes/users.js'
 import health from './routes/health.js'
@@ -39,6 +40,7 @@ app.get('/uploads/:filename', async (c) => {
 app.route('/api/health', health)
 app.route('/api/auth', auth)
 app.route('/api/articles', articles)
+app.route('/api/articles', comments)
 app.route('/api/uploads', uploads)
 app.route('/api/users', users)
 
