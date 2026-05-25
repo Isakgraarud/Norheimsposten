@@ -1,0 +1,120 @@
+
+
+.np-about-root {
+  font-family: 'Source Serif 4', Georgia, serif;
+  color: var(--color-text-primary);
+  max-width: 80%;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.np-about-dateline {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+  padding-bottom: 0.4rem;
+  margin-bottom: 2rem;
+}
+
+.np-about-section-head {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  border-bottom: 0.5px solid var(--color-border-secondary);
+  padding-bottom: 6px;
+  margin-bottom: 2rem;
+}
+
+.np-about-intro {
+  font-size: 15px;
+  line-height: 1.8;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+  border-left: 2px solid var(--color-border-secondary);
+  padding-left: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.np-about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.np-about-card {
+  border-top: 1px solid var(--color-text-secondary);
+  padding-top: 1rem;
+}
+
+.np-about-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  border: 0.5px solid var(--color-border-secondary);
+  color: var(--color-text-primary);
+  background: var(--color-background-secondary);
+}
+
+.np-about-card-name {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 2px;
+  line-height: 1.2;
+}
+
+.np-about-card-role {
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.75rem;
+  font-weight: 300;
+}
+
+.np-about-card-body {
+  font-size: 13.5px;
+  line-height: 1.75;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+}
+
+.np-about-card-body em {
+  font-style: italic;
+  color: var(--color-text-primary);
+}
+
+.np-about-rule {
+  border: none;
+  border-top: 0.5px solid var(--color-border-tertiary);
+  margin: 2rem 0;
+}
+
+.np-about-footer-quote {
+  text-align: center;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--color-text-secondary);
+  padding-bottom: 1rem;
+}
+
+.np-about-grid {
+  grid-template-columns: repeat(auto-fill, minmax(min(400px, 100%), 1fr));
+}
