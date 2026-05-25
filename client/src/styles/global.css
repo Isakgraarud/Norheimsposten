@@ -13,8 +13,8 @@
 
 :root {
   /* Brand palette */
-  --np-bg:     #f6f2e8;
-  --np-paper:  #fefcf7;
+  --np-bg:     #f3f1ec;
+  --np-paper:  #fdfcfa;
   --np-text:   #1f1f1a;
   --np-muted:  #6c6457;
   --np-line:   #d8cebc;
@@ -30,7 +30,7 @@
   --color-text-secondary:      #6c6457;
   --color-border-secondary:    #d8cebc;
   --color-border-tertiary:     rgba(216, 206, 188, 0.5);
-  --color-background-secondary:#f6f2e8;
+  --color-background-secondary:#f3f1ec;
 }
 
 
@@ -49,9 +49,9 @@ body,
 
 body {
   background:
-    radial-gradient(circle at 15% 12%, rgba(143, 47, 36, 0.08), transparent 28%),
-    radial-gradient(circle at 82% 4%,  rgba(54, 96, 71, 0.10), transparent 21%),
-    linear-gradient(180deg, #f2ebdc 0%, #f6f2e8 55%, #efe5d2 100%);
+    radial-gradient(circle at 15% 12%, rgba(143, 47, 36, 0.06), transparent 28%),
+    radial-gradient(circle at 82% 4%,  rgba(54, 96, 71, 0.07), transparent 21%),
+    linear-gradient(180deg, #efeee9 0%, #f3f1ec 55%, #e9e7e1 100%);
   color: var(--np-text);
   font-family: var(--np-body);
   line-height: 1.5;

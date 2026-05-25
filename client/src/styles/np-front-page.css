@@ -53,7 +53,7 @@
 /* ───── 2. Page shell + masthead + brand row ───── */
 
 .np-page-shell {
-  width: min(1240px, 95vw);
+  width: min(1480px, 98vw);
   margin: 1.5rem auto;
   background: var(--np-paper);
   border: 1px solid var(--np-line);

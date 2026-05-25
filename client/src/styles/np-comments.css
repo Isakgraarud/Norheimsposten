@@ -44,6 +44,7 @@
 .np-comment {
   padding: 0.9rem 1rem;
   border: 1px solid var(--np-line);
+  border-radius: 10px;
   background: var(--np-bg);
 }
 
