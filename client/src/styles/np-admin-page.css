@@ -462,7 +462,7 @@
 .cms-table tbody tr:hover          { background: var(--cms-surface-2); }
 
 .cms-table .id-cell {
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-family: var(--np-ui);
   color: var(--cms-muted);
   font-size: 0.8rem;
 }
